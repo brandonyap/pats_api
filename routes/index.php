@@ -14,12 +14,12 @@ class Router
         $app = AppFactory::create();
         $this->route_helper = new RouteHelper();
         
-        $this->defaultRoutes($app);
+        $this->testRoutes($app);
         $this->apiRoutes($app);
         $app->run();
     }
 
-    private function defaultRoutes($app) 
+    private function testRoutes($app) 
     {
         $app->get('/', function (Request $request, Response $response, $args) {
             $response->getBody()->write("Hello world!");
@@ -45,7 +45,7 @@ class Router
     {
         // API endpoints
         $app->group('/api', function (RouteCollectorProxy $api) {
-            // /api/beacons
+            // api/beacons
             $api->group('/beacons', function (RouteCollectorProxy $beacons) {
                 $beacons->get('', function (Request $request, Response $response, $args) {
                     $get = $this->route_helper->get($request);

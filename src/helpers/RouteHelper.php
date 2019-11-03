@@ -19,4 +19,9 @@ class RouteHelper
     {
         return $request->getQueryParams();
     }
+
+    public function post(Request $request)
+    {
+        return $request->getParsedBody();
+    }
 }
