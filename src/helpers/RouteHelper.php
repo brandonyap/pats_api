@@ -24,4 +24,14 @@ class RouteHelper
     {
         return $request->getParsedBody();
     }
+
+    public function put(Request $request)
+    {
+        return $request->getParsedBody();
+    }
+
+    public function delete(Request $request)
+    {
+        return $request->getParsedBody();
+    }
 }
