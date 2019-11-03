@@ -12,4 +12,18 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
+$app->get('/gettest', function (Request $request, Response $response, $args) {
+    $allGetVars = $request->getQueryParams();
+    error_log("Testing error log");
+    $res = $response->getBody()->write(json_encode($allGetVars));
+    $res = $response->withStatus(201);
+    return $res;
+});
+
+$app->post('/posttest', function (Request $request, Response $response, $args) {
+    $allPostVars = $request->getParsedBody();
+    $response->getBody()->write(json_encode($allPostVars));
+    return $response;
+});
+
 $app->run();
