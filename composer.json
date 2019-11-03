@@ -1,4 +1,9 @@
 {
+    "autoload": {
+        "psr-4": {
+            "pats\\Helpers\\": "src/helpers" 
+        }
+    },
     "require": {
         "slim/slim": "4.3.0",
         "slim/psr7": "^0.6.0"

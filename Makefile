@@ -1,11 +1,11 @@
-mac: mac_dbstart
+mac: start
 	php -S localhost:8888 -t routes routes/index.php
 
-mac_dbstart:
+start:
 	sudo /usr/local/mysql/support-files/mysql.server start
 
-mac_dbstop:
+stop:
 	sudo /usr/local/mysql/support-files/mysql.server stop
 
-mac_dbrestart:
+restart:
 	sudo /usr/local/mysql/support-files/mysql.server restart
