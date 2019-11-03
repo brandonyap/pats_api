@@ -14,7 +14,7 @@ class ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
-            'pats\\Helpers\\' => 13,
+            'pats\\' => 5,
         ),
         'S' => 
         array (
@@ -36,9 +36,9 @@ class ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3
     );
 
     public static $prefixDirsPsr4 = array (
-        'pats\\Helpers\\' => 
+        'pats\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/src/helpers',
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Slim\\Tests\\' => 
         array (

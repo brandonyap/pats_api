@@ -1,6 +1,6 @@
 <?php
 
-namespace Pats\Helpers;
+namespace pats\Helpers;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;

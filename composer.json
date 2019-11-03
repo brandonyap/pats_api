@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-            "pats\\Helpers\\": "src/helpers" 
+            "pats\\": "src"
         }
     },
     "require": {
