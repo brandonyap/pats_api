@@ -12,6 +12,8 @@ class Router
     public function __construct() 
     {
         $app = AppFactory::create();
+        $app->addBodyParsingMiddleware();
+
         // Load route helper
         $this->route_helper = new RouteHelper();
 
