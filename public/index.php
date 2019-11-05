@@ -4,6 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Slim\Routing\RouteCollectorProxy;
 use pats\Helpers\RouteHelper;
+use pats\Controllers;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -16,6 +17,9 @@ class Router
 
         // Load route helper
         $this->route_helper = new RouteHelper();
+
+        // Load Controllers
+        $this->beacon_controller = new Controllers\BeaconController();
 
         // Load Routes
         $this->testRoutes($app);
@@ -58,14 +62,19 @@ class Router
 
     private function beaconRoutes($api)
     {
-        // Load Controller
-
         // api/beacons
         $api->group('/beacons', function (RouteCollectorProxy $beacons) {
             $beacons->get('', function (Request $request, Response $response, $args) {
                 // Get the Query Params of the request
                 $data = $this->route_helper->get($request);
                 return $this->route_helper->response($response, $get, 200);
+            });
+
+            $beacons->post('', function (Request $request, Response $response, $args) {
+                // Get the Query Params of the request
+                $data = $this->route_helper->post($request);
+                list($result, $status) = $this->beacon_controller->index_post($data);
+                return $this->route_helper->response($response, $result, $status);
             });
         });
     }

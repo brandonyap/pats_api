@@ -2,15 +2,20 @@
 
 namespace pats\Interfaces;
 
+use pats\DB\DBController;
+
 class PatsInterface
 {
-    public function _construct()
+    public $db;
+
+    public function __construct()
     {
-        // Some code in here to setup the database connection
+        $this->db = new DBController();
+        $this->db->connect();
     }
 
-    public function _destruct()
+    public function __destruct()
     {
-        // Some code in here to disconnect the database
+        $this->db->disconnect();
     }
 }

@@ -2,7 +2,35 @@
 
 namespace pats\Controllers;
 
-class BeaconController extends Controllers\RESTController
-{
+use pats\Controllers\RESTController;
+use pats\Interfaces\BeaconInterface;
 
+class BeaconController extends RESTController
+{
+    private $beacon_interface;
+
+    public function __construct()
+    {
+        $this->beacon_interface = new BeaconInterface();
+    }
+
+    public function index_get($data)
+    {
+        // Get all Beacons
+    }
+
+    public function index_post($data)
+    {
+        $result = $this->beacon_interface->create($data);
+
+        if (gettype($result) == "array") {
+            return $this->response($result[0], $result[1], 400);
+        }
+
+        if (!$result) {
+            return $this->response(false, "Something went wrong", 400);
+        }
+
+        return $this->response(true, ['id' => $result], 201);
+    }
 }
