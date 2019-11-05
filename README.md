@@ -26,5 +26,14 @@ In order to see errors in the terminal go to the `private/etc/php.ini` file and 
 
 `error_log = syslog`
 
+## PDO Setup
+In order to properly setup the database you will need to edit the `private/etc/php.ini` file. Go to the following line:
+
+`pdo_mysql.default_socket=` 
+
+and change it to: 
+
+`pdo_mysql.default_socket=/tmp/mysql.sock` for macOS.
+
 ## Endpoints
 There are no set endpoints at this moment.
