@@ -24,12 +24,8 @@ class BeaconController extends RESTController
     {
         $result = $this->beacon_interface->create($data);
 
-        if (gettype($result) == "array") {
-            return $this->response($result[0], $result[1], 400);
-        }
-
         if (!$result) {
-            return $this->response(false, "Something went wrong", 400);
+            return $this->response(false, "Error: Beacon entry not created", 400);
         }
 
         return $this->response(true, ['id' => $result], 201);

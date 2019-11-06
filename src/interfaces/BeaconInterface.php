@@ -26,7 +26,7 @@ class BeaconInterface extends PatsInterface
             $beacon_model->validate();
         } catch (PatsException $e) {
             error_log($e);
-            return [false, "Error: Invalid Data"];
+            return false;
         }
 
         $args = [
