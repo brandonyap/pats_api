@@ -3,23 +3,11 @@
 namespace pats\DB;
 
 use PDO;
+use pats\DB\DBCredentials;
 
-class DBController
+class DBController extends DBCredentials
 {
-    private $db_server;
-    private $db_user;
-    private $db_password;
-    private $db_name;
     private $connection;
-
-    public function __construct()
-    {
-        // $this->decodeCredentials();
-        $this->db_server = "localhost";
-        $this->db_user = "brandon";
-        $this->db_password = "brandon";
-        $this->db_name = "pats";
-    }
 
     public function connect()
     {
@@ -64,16 +52,5 @@ class DBController
     public function lastInsertId()
     {
         return $this->connection->lastInsertId();
-    }
-
-    private function decodeCredentials()
-    {
-        $db_info_json = file_get_contents("database_info.json");
-        $db_info = json_decode($db_info_json, true);
-
-        $this->db_server = $db_info['db_server'];
-        $this->db_user = $db_info['db_server'];
-        $this->db_password = $db_info['db_password'];
-        $this->db_name = $db_info['db_name'];
     }
 }
