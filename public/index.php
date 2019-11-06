@@ -12,8 +12,12 @@ class Router
 {
     public function __construct() 
     {
+        // Create Instance of Slim App
         $app = AppFactory::create();
         $app->addBodyParsingMiddleware();
+        
+        // Add Error Middleware
+        $errorMiddleware = $app->addErrorMiddleware(true, true, true);
 
         // Load route helper
         $this->route_helper = new RouteHelper();
@@ -28,6 +32,10 @@ class Router
         // Run Router
         $app->run();
     }
+
+    //======================================================================
+    // MAIN ROUTES
+    //======================================================================
 
     private function testRoutes($app) 
     {
@@ -60,18 +68,22 @@ class Router
         });
     }
 
+    //-----------------------------------------------------
+    // API Routes
+    //-----------------------------------------------------
     private function beaconRoutes($api)
     {
         // api/beacons
         $api->group('/beacons', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons
             $beacons->get('', function (Request $request, Response $response, $args) {
-                // Get the Query Params of the request
-                $data = $this->route_helper->get($request);
-                return $this->route_helper->response($response, $get, 200);
+                //$data = $this->route_helper->get($request);
+                list($result, $status) = $this->beacon_controller->index_get();
+                return $this->route_helper->response($response, $result, $status);
             });
 
+            // POST api/beacons
             $beacons->post('', function (Request $request, Response $response, $args) {
-                // Get the Query Params of the request
                 $data = $this->route_helper->post($request);
                 list($result, $status) = $this->beacon_controller->index_post($data);
                 return $this->route_helper->response($response, $result, $status);
@@ -79,10 +91,9 @@ class Router
         });
     }
 
+    // TODO.
     private function sensorRoutes($api)
     {
-        // Load Controller
-
         // api/sensors
         $api->group('/sensors', function (RouteCollectorProxy $sensors) {
             $sensors->get('', function (Request $request, Response $response, $args) {
@@ -105,6 +116,25 @@ class Router
                 return $this->route_helper->response($response, $data, 200);
             });
         });
+    }
+
+    //======================================================================
+    // HANDLERS
+    //======================================================================
+    private function NotFoundHandler()
+    {
+        $c = new \Slim\Container(); //Create Your container
+
+        //Override the default Not Found Handler before creating App
+        $c['notFoundHandler'] = function ($c) {
+            return function ($request, $response) use ($c) {
+                return $response->withStatus(404)
+                    ->withHeader('Content-Type', 'text/html')
+                    ->write('Endpoint not found');
+            };
+        };
+
+        return $c;
     }
 }
 

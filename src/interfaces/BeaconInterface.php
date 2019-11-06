@@ -4,6 +4,7 @@ namespace pats\Interfaces;
 
 use pats\Interfaces\PatsInterface;
 use pats\Models\BeaconModel;
+use pats\Exceptions\PatsException;
 
 class BeaconInterface extends PatsInterface
 {
@@ -12,6 +13,9 @@ class BeaconInterface extends PatsInterface
         parent::__construct();
     }
 
+    //======================================================================
+    // CREATE METHODS
+    //======================================================================
     public function create($data)
     {
         $sql = "INSERT INTO beacons (bluetooth_address, name, description)
@@ -21,7 +25,8 @@ class BeaconInterface extends PatsInterface
         try {
             $beacon_model->validate();
         } catch (PatsException $e) {
-            return [false, $e];
+            error_log($e);
+            return [false, "Error: Invalid Data"];
         }
 
         $args = [
@@ -39,6 +44,26 @@ class BeaconInterface extends PatsInterface
         }
     }
 
+    //======================================================================
+    // READ METHODS
+    //======================================================================
+    public function getAll()
+    {
+        $sql = "SELECT * FROM beacons";
+        $query = $this->db->readQuery($sql);
+
+        $results = [];
+
+        foreach ($query as $beacon) {
+            $results[] = $this->createModel($beacon);
+        }
+
+        return $results;
+    }
+
+    //======================================================================
+    // PRIVATE METHODS
+    //======================================================================
     private function createModel($data)
     {
         $model = new BeaconModel();

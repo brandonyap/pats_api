@@ -9,3 +9,6 @@ stop:
 
 restart:
 	sudo /usr/local/mysql/support-files/mysql.server restart
+
+log:
+	log stream --predicate 'processImagePath contains "php"'

@@ -14,9 +14,10 @@ class BeaconController extends RESTController
         $this->beacon_interface = new BeaconInterface();
     }
 
-    public function index_get($data)
+    public function index_get()
     {
-        // Get all Beacons
+        $result = $this->beacon_interface->getAll();
+        return $this->response(true, $result, 200);
     }
 
     public function index_post($data)
