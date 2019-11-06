@@ -26,6 +26,10 @@ In order to see errors in the terminal go to the `private/etc/php.ini` file and 
 
 `error_log = syslog`
 
+In terminal do the following command to see error logs:
+
+`make log`
+
 ## PDO Setup
 In order to properly setup the database you will need to edit the `private/etc/php.ini` file. Go to the following line:
 
