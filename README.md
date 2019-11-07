@@ -12,14 +12,42 @@ In order to run the `pats_api` you will need the following:
 
 ## Running the API
 ### macOS
-In the root of the folder do the following command: 
-`make mac`.
+In the root of the folder do the following command to run the API in production mode: 
+
+`make mac_prod`
 
 To stop the API simply do: 
-`control-c`.
+
+`control-c`
 
 To stop or restart MySQL do: 
-`make mac_dbstop` or `make mac_dbrestart` respectively.
+
+`make stop` or `make restart` respectively.
+
+### Windows
+Nothing here at the moment.
+
+## Testing
+### macOS
+To run tests for the API start the server in test mode:
+
+`make mac_test`
+
+### Windows
+Nothing here at the moment.
+
+### Both
+
+To start the tests run the following command:
+
+`make test`
+
+Or this command for verbose output:
+
+`make test-vvv`
+
+## Endpoints
+There are no set endpoints at this moment.
 
 ## Error Logging
 In order to see errors in the terminal go to the `private/etc/php.ini` file and uncomment the following line:
@@ -38,6 +66,3 @@ In order to properly setup the database you will need to edit the `private/etc/p
 and change it to: 
 
 `pdo_mysql.default_socket=/tmp/mysql.sock` for macOS.
-
-## Endpoints
-There are no set endpoints at this moment.
