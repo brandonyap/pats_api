@@ -22,3 +22,9 @@ db_test:
 
 log:
 	log stream --predicate 'processImagePath contains "php"'
+
+test:
+	php vendor/bin/codecept run
+
+test-vvv:
+	php vendor/bin/codecept run -vvv

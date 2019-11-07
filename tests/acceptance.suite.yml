@@ -8,6 +8,10 @@ actor: AcceptanceTester
 modules:
     enabled:
         - PhpBrowser:
-            url: http://localhost:8888
+            url: http://localhost:8888/api/
         - \Helper\Acceptance
+        - REST:
+            depends: PhpBrowser
+            url: 'http://localhost:8888/api/'
+            shortDebugResponse: 300
     step_decorators: ~        
