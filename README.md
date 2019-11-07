@@ -10,6 +10,32 @@ In order to run the `pats_api` you will need the following:
 - MySQL installed.
 - bash or zsh to execute commands.
 
+### Error Logging
+#### macOS
+In order to see errors in the terminal go to the `private/etc/php.ini` file and uncomment the following line:
+
+`error_log = syslog`
+
+#### Windows
+Nothing here at the moment.
+
+In terminal do the following command to see error logs:
+
+`make log`
+
+### PDO Setup
+#### macOS
+In order to properly setup the database you will need to edit the `private/etc/php.ini` file. Go to the following line:
+
+`pdo_mysql.default_socket=` 
+
+and change it to: 
+
+`pdo_mysql.default_socket=/tmp/mysql.sock`
+
+#### Windows
+Nothinng here at the moment.
+
 ## Running the API
 ### macOS
 In the root of the folder do the following command to run the API in production mode: 
@@ -48,21 +74,3 @@ Or this command for verbose output:
 
 ## Endpoints
 There are no set endpoints at this moment.
-
-## Error Logging
-In order to see errors in the terminal go to the `private/etc/php.ini` file and uncomment the following line:
-
-`error_log = syslog`
-
-In terminal do the following command to see error logs:
-
-`make log`
-
-## PDO Setup
-In order to properly setup the database you will need to edit the `private/etc/php.ini` file. Go to the following line:
-
-`pdo_mysql.default_socket=` 
-
-and change it to: 
-
-`pdo_mysql.default_socket=/tmp/mysql.sock` for macOS.
