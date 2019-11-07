@@ -37,6 +37,15 @@ class Router
     // MAIN ROUTES
     //======================================================================
 
+    private function apiRoutes($app)
+    {
+        // API endpoints
+        $app->group('/api', function (RouteCollectorProxy $api) {
+            $this->beaconRoutes($api);
+            $this->sensorRoutes($api);
+        });
+    }
+
     private function testRoutes($app) 
     {
         $app->get('/', function (Request $request, Response $response, $args) {
@@ -46,7 +55,6 @@ class Router
         
         $app->get('/gettest', function (Request $request, Response $response, $args) {
             $allGetVars = $request->getQueryParams();
-            error_log("Testing error log");
             $res = $response->getBody()->write(json_encode($allGetVars));
             $res = $response->withStatus(201);
             return $res;
@@ -56,15 +64,6 @@ class Router
             $allPostVars = $request->getParsedBody();
             $response->getBody()->write(json_encode($allPostVars));
             return $response;
-        });
-    }
-
-    private function apiRoutes($app)
-    {
-        // API endpoints
-        $app->group('/api', function (RouteCollectorProxy $api) {
-            $this->beaconRoutes($api);
-            $this->sensorRoutes($api);
         });
     }
 
