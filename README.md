@@ -19,6 +19,7 @@ In order to see errors in the terminal go to the `private/etc/php.ini` file and 
 #### Windows
 Nothing here at the moment.
 
+#### Running Error Logs
 In terminal do the following command to see error logs:
 
 `make log`
