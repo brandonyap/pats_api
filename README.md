@@ -39,9 +39,9 @@ Nothinng here at the moment.
 
 ## Running the API
 ### macOS
-In the root of the folder do the following command to run the API in production mode: 
+In the root of the folder do the following command to run the API: 
 
-`make mac_prod`
+`make mac`
 
 To stop the API simply do: 
 
@@ -55,16 +55,6 @@ To stop or restart MySQL do:
 Nothing here at the moment.
 
 ## Testing
-### macOS
-To run tests for the API start the server in test mode:
-
-`make mac_test`
-
-### Windows
-Nothing here at the moment.
-
-### Both
-
 To start the tests run the following command:
 
 `make test`
