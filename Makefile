@@ -16,6 +16,9 @@ backup:
 restore:
 	cat backup.sql | docker exec -i pats-mysql /usr/bin/mysql -u pats --password=41xgroup69 pats
 
+reset:
+	cat pats.sql | docker exec -i pats-mysql /usr/bin/mysql -u pats --password=41xgroup69 pats
+
 test: backup codeception restore
 
 test-vvv: backup codeception-vvv restore
