@@ -1,29 +1,34 @@
-mac: db_prod mac_start
+server_start: docker_start
 	php -S localhost:8888 -t public public/index.php
 
-mac_start:
-	sudo /usr/local/mysql/support-files/mysql.server start
-
 stop:
-	rm src/db/db.json
-	sudo /usr/local/mysql/support-files/mysql.server stop
-
-restart:
-	sudo /usr/local/mysql/support-files/mysql.server restart
+	docker kill pats-mysql
 
 log:
 	log stream --predicate 'processImagePath contains "php"'
 
-test: db_test
+sql-log:
+	docker logs -f pats-mysql
+
+backup:
+	docker exec pats-mysql /usr/bin/mysqldump -u pats --password=41xgroup69 pats > backup.sql
+
+restore:
+	cat backup.sql | docker exec -i pats-mysql /usr/bin/mysql -u pats --password=41xgroup69 pats
+
+test: backup codeception restore
+
+test-vvv: backup codeception-vvv restore
+	
+codeception:
 	php vendor/bin/codecept run -v
-	cd src/db && echo '{"type":"prod"}' >db.json && cd ../..
 
-test-vvv: db_test
+codeception-vvv:
 	php vendor/bin/codecept run -vvv
-	cd src/db && echo '{"type":"prod"}' >db.json && cd ../..
 
-db_prod:
-	cd src/db && echo '{"type":"prod"}' >db.json && cd ../..
+docker_start:
+	docker start pats-mysql
 
-db_test:
-	cd src/db && echo '{"type":"test"}' >db.json && cd ../..
+setup:
+	docker build -t pats-mysql .
+	docker run --name pats-mysql -p 3306:3306 -d pats-mysql

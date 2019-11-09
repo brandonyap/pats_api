@@ -3,10 +3,13 @@
 namespace pats\DB;
 
 use PDO;
-use pats\DB\DBCredentials;
 
-class DBController extends DBCredentials
+class DBController
 {
+    private $db_server = "localhost:3306";
+    private $db_user = "pats";
+    private $db_password = "41xgroup69";
+    private $db_name = "pats";
     private $connection;
 
     public function connect()

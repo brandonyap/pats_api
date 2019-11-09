@@ -14,4 +14,10 @@ modules:
             depends: PhpBrowser
             url: 'http://localhost:8888/api/'
             shortDebugResponse: 300
+        - Db:
+            dsn: 'mysql:host=localhost:3306;dbname=pats'
+            user: 'pats'
+            password: '41xgroup69'
+            dump: 'tests/_data/dump.sql'
+            populate: true
     step_decorators: ~        
