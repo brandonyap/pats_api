@@ -1,54 +1,124 @@
--- MySQL dump 10.13  Distrib 5.7.28, for Linux (x86_64)
---
--- Host: localhost    Database: pats
--- ------------------------------------------------------
--- Server version	5.7.28
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.7.28)
+# Database: pats
+# Generation Time: 2019-11-10 16:05:47 +0000
+# ************************************************************
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
---
--- Table structure for table `beacons`
---
+
+# Dump of table beacons
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `beacons`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+
 CREATE TABLE `beacons` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `bluetooth_address` varchar(17) NOT NULL DEFAULT '',
-  `name` varchar(26) NOT NULL DEFAULT '',
-  `description` text,
+  `bluetooth_address` varchar(17) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `name` varchar(26) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `description` text CHARACTER SET latin1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `bluetooth_address` (`bluetooth_address`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `beacons`
---
 
-LOCK TABLES `beacons` WRITE;
-/*!40000 ALTER TABLE `beacons` DISABLE KEYS */;
-INSERT INTO `beacons` VALUES (1,'11:22:33:44:55:66','Test Beacon 1','Testing the database'),(2,'11:22:33:44:55:77','Test Beacon 2','Testing the database'),(3,'11:22:33:44:55:88','Test Beacon 3','Testing the database');
-/*!40000 ALTER TABLE `beacons` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+# Dump of table beacons_group
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `beacons_group`;
+
+CREATE TABLE `beacons_group` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table beacons_group_locations
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `beacons_group_locations`;
+
+CREATE TABLE `beacons_group_locations` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `beacons_id` int(11) NOT NULL,
+  `location_x` float NOT NULL,
+  `location_y` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors`;
+
+CREATE TABLE `sensors` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `bluetooth_address` varchar(17) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `bluetooth_address` (`bluetooth_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors_locations
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors_locations`;
+
+CREATE TABLE `sensors_locations` (
+  `sensors_id` int(11) NOT NULL,
+  `location_x` float NOT NULL,
+  `location_y` float NOT NULL,
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors_locations_history
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors_locations_history`;
+
+CREATE TABLE `sensors_locations_history` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `sensors_id` int(11) NOT NULL,
+  `location_x` float NOT NULL,
+  `location_y` float NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2019-11-09  5:27:12

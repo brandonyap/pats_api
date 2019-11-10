@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2019-11-09 04:56:04 +0000
+# Generation Time: 2019-11-10 16:05:47 +0000
 # ************************************************************
 
 
@@ -27,12 +27,91 @@ DROP TABLE IF EXISTS `beacons`;
 
 CREATE TABLE `beacons` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `bluetooth_address` varchar(17) NOT NULL DEFAULT '',
-  `name` varchar(26) NOT NULL DEFAULT '',
-  `description` text,
+  `bluetooth_address` varchar(17) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `name` varchar(26) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `description` text CHARACTER SET latin1,
   PRIMARY KEY (`id`),
   UNIQUE KEY `bluetooth_address` (`bluetooth_address`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table beacons_group
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `beacons_group`;
+
+CREATE TABLE `beacons_group` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table beacons_group_locations
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `beacons_group_locations`;
+
+CREATE TABLE `beacons_group_locations` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `beacons_id` int(11) NOT NULL,
+  `location_x` float NOT NULL,
+  `location_y` float NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors`;
+
+CREATE TABLE `sensors` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `bluetooth_address` varchar(17) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `bluetooth_address` (`bluetooth_address`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors_locations
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors_locations`;
+
+CREATE TABLE `sensors_locations` (
+  `sensors_id` int(11) NOT NULL,
+  `location_x` float NOT NULL,
+  `location_y` float NOT NULL,
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors_locations_history
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors_locations_history`;
+
+CREATE TABLE `sensors_locations_history` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `sensors_id` int(11) NOT NULL,
+  `location_x` float NOT NULL,
+  `location_y` float NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
