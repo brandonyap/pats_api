@@ -1,24 +1,49 @@
-server_start: docker_start
-	php -S localhost:8888 -t public public/index.php
+# *************************
+# SERVER CONTROLS 
+# *************************
+start: start_mysql start_apache
 
-stop:
+stop: stop_mysql stop_apache
+
+start_mysql:
+	docker start pats-mysql
+
+stop_mysql:
 	docker kill pats-mysql
 
-log:
-	log stream --predicate 'processImagePath contains "php"'
+start_apache:
+	docker start pats-api
 
+stop_apache:
+	docker kill pats-api
+
+# *************************
+# LOGGING
+# *************************
 sql-log:
 	docker logs -f pats-mysql
 
+api-log:
+	docker logs -f pats-api
+
+# *************************
+# SQL MODIFICATIONS
+# *************************
+# Backup the DB
 backup:
 	docker exec pats-mysql /usr/bin/mysqldump -u pats --password=41xgroup69 pats > backup.sql
 
+# Restores DB from backup
 restore:
 	cat backup.sql | docker exec -i pats-mysql /usr/bin/mysql -u pats --password=41xgroup69 pats
 
+# Resets the DB to original state
 reset:
-	cat pats.sql | docker exec -i pats-mysql /usr/bin/mysql -u pats --password=41xgroup69 pats
+	cat docker/mysql/pats.sql | docker exec -i pats-mysql /usr/bin/mysql -u pats --password=41xgroup69 pats
 
+# *************************
+# TESTING
+# *************************
 test: backup codeception restore
 
 test-vvv: backup codeception-vvv restore
@@ -29,9 +54,44 @@ codeception:
 codeception-vvv:
 	php vendor/bin/codecept run -vvv
 
-docker_start:
-	docker start pats-mysql
+# *************************
+# SETUP
+# *************************
+# This sets up the docker containers and the network connections
+setup: setup-mysql setup-apache setup-network
 
-setup:
-	docker build -t pats-mysql .
-	docker run --name pats-mysql -p 3306:3306 -d pats-mysql
+setup-mysql:
+	cd docker/mysql && docker build -t pats-mysql . && docker run --name pats-mysql -p 3306:3306 -d pats-mysql && cd ../..
+
+setup-apache:
+	cd docker/php-apache && docker build -t pats-api . && cd ../.. && docker run --name pats-api -p 8888:80 -v $(CURDIR):/var/www/html -d pats-api
+
+setup-network:
+	docker network create patsnetwork
+	docker network connect patsnetwork pats-api
+	docker network connect patsnetwork pats-mysql
+
+# WARNING: Use only inside the bash for pats-api
+a_setup:
+	cp docker/php-apache/apache2.conf /etc/apache2/
+	cp docker/php-apache/php.ini /usr/local/etc/php/
+	a2enmod rewrite
+	service apache2 restart
+
+# *************************
+# CONTAINER BASH
+# *************************
+# Bash for the containers
+api-bash:
+	docker exec -it pats-api /bin/bash
+
+mysql-bash:
+	docker exec -it pats-mysql /bin/bash
+
+# *************************
+# CLEAN PROJECT
+# *************************
+clean:
+	docker container rm pats-mysql
+	docker container rm pats-api
+	docker network rm patsnetwork

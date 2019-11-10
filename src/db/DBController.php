@@ -6,7 +6,7 @@ use PDO;
 
 class DBController
 {
-    private $db_server = "localhost:3306";
+    private $db_server = "pats-mysql";
     private $db_user = "pats";
     private $db_password = "41xgroup69";
     private $db_name = "pats";
