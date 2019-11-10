@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3
+class ComposerStaticInit2ca4fabc7174899d4bc070d2b47ff0f1
 {
     public static $files = array (
         'e88992873b7765f9b5710cab95ba5dd7' => __DIR__ . '/..' . '/hoa/consistency/Prelude.php',
@@ -865,10 +865,10 @@ class ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInitf5aaff2df965009f81cf80161e4b0ee3::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2ca4fabc7174899d4bc070d2b47ff0f1::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2ca4fabc7174899d4bc070d2b47ff0f1::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit2ca4fabc7174899d4bc070d2b47ff0f1::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit2ca4fabc7174899d4bc070d2b47ff0f1::$classMap;
 
         }, null, ClassLoader::class);
     }
