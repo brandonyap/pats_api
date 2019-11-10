@@ -8,9 +8,9 @@ The `pats_api` runs on `localhost:8888`
 In order to run the `pats_api` you will need Docker Desktop installed. See https://www.docker.com/products/docker-desktop for installation instructions.
 
 ## Docker Container Setup
-Once Docker Desktop is installed and running do the following:
+Once Docker Desktop is installed and running do the following. All of the commands are done in the `pats_api` directory.
 
-1. In the `pats_api` directory run the following command: `make setup`
+1. Run the following command: `make setup`
 
 2. Check if the `pats-api` and `pats-mysql` containers are running with the following command: `docker ps` - There should be 2 containers listed.
 
