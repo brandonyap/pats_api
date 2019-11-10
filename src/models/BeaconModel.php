@@ -11,6 +11,9 @@ class BeaconModel extends PatsModel
     public $name = null;
     public $description = "";
 
+    /**
+     * Validates whether or not the data in the model is valid.
+     */
     public function validate()
     {
         if (!isset($this->bluetooth_address)) {

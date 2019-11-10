@@ -8,6 +8,9 @@ use pats\Exceptions\PatsException;
 
 class BeaconInterface extends PatsInterface
 {
+    /**
+     * Constructs the class to use PatsInterface.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -16,6 +19,12 @@ class BeaconInterface extends PatsInterface
     //======================================================================
     // CREATE METHODS
     //======================================================================
+    
+    /**
+     * Creates a beacon to be put into the beacons table.
+     * @param array $data is the data from the parsed body
+     * @return int for the last insert ID or false if the query wasn't completed
+     */
     public function create($data)
     {
         $sql = "INSERT INTO beacons (bluetooth_address, name, description)
@@ -47,10 +56,15 @@ class BeaconInterface extends PatsInterface
     //======================================================================
     // READ METHODS
     //======================================================================
+
+    /**
+     * Gets all of the current beacons in the database.
+     * @return array of beacons.
+     */
     public function getAll()
     {
         $sql = "SELECT * FROM beacons";
-        $query = $this->db->readQuery($sql);
+        $query = $this->db->query($sql);
 
         $results = [];
 
@@ -64,6 +78,11 @@ class BeaconInterface extends PatsInterface
     //======================================================================
     // PRIVATE METHODS
     //======================================================================
+
+    /**
+     * Creates a model for the beacon.
+     * @return BeaconModel model
+     */
     private function createModel($data)
     {
         $model = new BeaconModel();
