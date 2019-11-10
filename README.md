@@ -4,56 +4,40 @@
 The `pats_api` runs on `localhost:8888`
 
 # Setup
-In order to run the `pats_api` you will need the following:
+## Docker
+In order to run the `pats_api` you will need Docker Desktop installed. See https://www.docker.com/products/docker-desktop for installation instructions.
 
-- PHP installed.
-- Docker installed. See https://www.docker.com/products/docker-desktop
+## Docker Container Setup
+Once Docker Desktop is installed and running do the following:
 
-Once Docker is installed and running, execute the following command to set MySQL up:
+1. In the `pats_api` directory run the following command: `make setup`
 
-`make setup`
+2. Check if the `pats-api` and `pats-mysql` containers are running with the following command: `docker ps` - There should be 2 containers listed.
+
+3. Launch the `pats-api` container with: `make api-bash`
+
+4. Once the `pats-api` bash shell is running then do: `make a_setup`
+
+5. Relaunch the `pats-api` container with the following command: `make start_apache`
 
 ## Error Logging
-### macOS
-In order to see errors in the terminal go to the `private/etc/php.ini` file and uncomment the following line:
-
-`error_log = syslog`
-
-### Windows
-Nothing here at the moment.
-
 ### Running Error Logs
-In terminal do the following command to see error logs for the php sever:
+In terminal do the following command to see error logs for the php-apache server:
 
-`make log`
+`make api-log`
 
 To see logs for the MySQL server run:
 
 `make sql-log`
 
-## PDO Setup
-### macOS
-In order to properly setup the database you will need to edit the `private/etc/php.ini` file. Go to the following line:
+# Running pats API
+## Starting the API
+In the `pats_api` directory run the following command: 
 
-`pdo_mysql.default_socket=` 
+`make start`
 
-and change it to: 
-
-`pdo_mysql.default_socket=/tmp/mysql.sock`
-
-### Windows
-Nothinng here at the moment.
-
-# Running the API
-In the root of the folder do the following command to run the API: 
-
-`make`
-
-To stop the API simply do: 
-
-`control-c`
-
-To stop the MySQL container do: 
+## Stopping the API
+In the `pats_api` directory run the following command: 
 
 `make stop`
 
@@ -67,4 +51,13 @@ Or this command for verbose output:
 `make test-vvv`
 
 # Endpoints
-There are no set endpoints at this moment.
+`{{host}}` is `localhost:8888` if running locally.
+
+GET `{{host}}/api/beacons`
+
+POST `{{host}}/api/beacons` with x-www-form-urlencoded data
+
+# Cleaning up the project
+When you're finished with the project and no longer want any of the Docker containers and networks on your computer run the following command:
+
+`make clean`
