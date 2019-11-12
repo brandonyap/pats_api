@@ -75,6 +75,24 @@ class BeaconInterface extends PatsInterface
         return $results;
     }
 
+    public function getById($id)
+    {
+        $sql = "SELECT * FROM beacons WHERE id = :id";
+        $args[':id'] = $id;
+
+        $query = $this->db->query($sql, $args);
+
+        if (!$query) {
+            return false;
+        }
+
+        if (count($query) > 0) {
+            return $this->createModel($query[0]);
+        } else {
+            return false;
+        }
+    }
+
     //======================================================================
     // PRIVATE METHODS
     //======================================================================

@@ -76,15 +76,22 @@ class Router
         $api->group('/beacons', function (RouteCollectorProxy $beacons) {
             // GET api/beacons
             $beacons->get('', function (Request $request, Response $response, $args) {
-                //$data = $this->route_helper->get($request);
-                list($result, $status) = $this->beacon_controller->index_get();
+                list($result, $status) = $this->beacon_controller->get_index();
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // POST api/beacons
             $beacons->post('', function (Request $request, Response $response, $args) {
                 $data = $this->route_helper->post($request);
-                list($result, $status) = $this->beacon_controller->index_post($data);
+                list($result, $status) = $this->beacon_controller->post_index($data);
+                return $this->route_helper->response($response, $result, $status);
+            });
+        });
+
+        $api->group('/beacons/{id}', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons
+            $beacons->get('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->beacon_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
