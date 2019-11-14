@@ -15,7 +15,7 @@ class BeaconCest
      */
     public function getAllBeaconsSucceeds(AcceptanceTester $I)
     {
-        $I->sendGET('/beacons');
+        $I->sendGET('/beacons/all');
         $I->seeResponseCodeIs(200);
     }
 

@@ -75,7 +75,7 @@ class Router
         // api/beacons
         $api->group('/beacons', function (RouteCollectorProxy $beacons) {
             // GET api/beacons
-            $beacons->get('', function (Request $request, Response $response, $args) {
+            $beacons->get('/all', function (Request $request, Response $response, $args) {
                 list($result, $status) = $this->beacon_controller->get_index();
                 return $this->route_helper->response($response, $result, $status);
             });

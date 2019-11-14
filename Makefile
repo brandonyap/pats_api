@@ -44,10 +44,12 @@ reset:
 # *************************
 # TESTING
 # *************************
-test: backup codeception restore
+test: backup 
+	${MAKE} codeception && ${MAKE} restore || ${MAKE} restore
 
-test-vvv: backup codeception-vvv restore
-	
+test-vvv: backup
+	${MAKE} codeception-vvv && ${MAKE} restore || ${MAKE} restore
+
 codeception:
 	php vendor/bin/codecept run -v
 
