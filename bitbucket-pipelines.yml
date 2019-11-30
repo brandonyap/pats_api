@@ -7,7 +7,7 @@ pipelines:
         services:
           - docker
         script:
-          - apt-get install pdo-mysql
+          - apt-get install php-mysql
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 install
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 update
           - make setup-mysql
