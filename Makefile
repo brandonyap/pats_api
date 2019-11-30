@@ -67,18 +67,13 @@ setup-mysql:
 
 setup-apache:
 	cd docker/php-apache && docker build -t pats-api . && cd ../.. && docker run --name pats-api -p 8888:80 -v $(CURDIR):/var/www/html -d pats-api
+	docker cp docker/php-apache/apache2.conf pats-api:/etc/apache2/apache2.conf
+	docker cp docker/php-apache/php.ini pats-api:/usr/local/etc/php/
 
 setup-network:
 	docker network create patsnetwork
 	docker network connect patsnetwork pats-api
 	docker network connect patsnetwork pats-mysql
-
-# WARNING: Use only inside the bash for pats-api
-a_setup:
-	cp docker/php-apache/apache2.conf /etc/apache2/
-	cp docker/php-apache/php.ini /usr/local/etc/php/
-	a2enmod rewrite
-	service apache2 restart
 
 # *************************
 # CONTAINER BASH
