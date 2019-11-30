@@ -6,7 +6,7 @@ use Slim\Routing\RouteCollectorProxy;
 use pats\Helpers\RouteHelper;
 use pats\Controllers;
 
-require __DIR__ . '/../vendor/autoload.php';
+require_once(__DIR__ . '/../vendor/autoload.php');
 
 class Router
 {
