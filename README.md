@@ -14,11 +14,7 @@ Once Docker Desktop is installed and running do the following. All of the comman
 
 2. Check if the `pats-api` and `pats-mysql` containers are running with the following command: `docker ps` - There should be 2 containers listed.
 
-3. Launch the `pats-api` container with: `make api-bash`
-
-4. Once the `pats-api` bash shell is running then do: `make a_setup`
-
-5. Relaunch the `pats-api` container with the following command: `make start_apache`
+3. Test out the API by going to http://localhost:8888
 
 ## Error Logging
 ### Running Error Logs
