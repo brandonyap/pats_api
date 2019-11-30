@@ -3,7 +3,7 @@ image: spittet/php-mysql
 pipelines:
   default:
     - step:
-        name: Build PATS
+        name: Build & Run PATS
         services:
           - docker
         script:
@@ -13,7 +13,4 @@ pipelines:
           - make setup-mysql
           - make setup-apache
           - make setup-network
-    - step:
-        name: Run PATS
-        script:
           - make codeception-vvv
