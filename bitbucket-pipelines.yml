@@ -3,13 +3,17 @@ image: spittet/php-mysql
 pipelines:
   default:
     - step:
-        name: Build & Run PATS
+        name: Build PATS
         services:
           - docker
         script:
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 install
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 update
+          - docker run --rm -it --volume $(pwd):/app prooph/composer:7.3 dump-autoload
           - make setup-mysql
           - make setup-apache
           - make setup-network
+    - step:
+        name: Run PATS
+        script:
           - make codeception-vvv

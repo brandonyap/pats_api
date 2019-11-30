@@ -60,7 +60,7 @@ codeception-vvv:
 # SETUP
 # *************************
 # This sets up the docker containers and the network connections
-setup: composer-install composer-update setup-mysql setup-apache setup-network
+setup: composer-install composer-update composer-dump-autoload setup-mysql setup-apache setup-network
 
 setup-mysql:
 	cd docker/mysql && docker build -t pats-mysql . && docker run --name pats-mysql -p 3306:3306 -d pats-mysql && cd ../..
@@ -80,6 +80,9 @@ composer-install:
 
 composer-update:
 	docker run --rm -it --volume $(CURDIR):/app prooph/composer:7.3 update
+
+composer-dump-autoload:
+	docker run --rm -it --volume $(CURDIR):/app prooph/composer:7.3 dump-autoload
 
 # *************************
 # CONTAINER BASH
