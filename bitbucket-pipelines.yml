@@ -9,7 +9,7 @@ pipelines:
         script:
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 install
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 update
-          - docker run --rm -it --volume $(pwd):/app prooph/composer:7.3 dump-autoload
+          - docker run --rm --volume $(pwd):/app prooph/composer:7.3 dump-autoload
           - make setup-mysql
           - make setup-apache
           - make setup-network
