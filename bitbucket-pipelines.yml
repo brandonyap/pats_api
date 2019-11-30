@@ -1,0 +1,12 @@
+image: atlassian/default-image:2
+
+pipelines:
+  default:
+    - step:
+        name: Build PATS
+        script:
+          - make setup
+    - step:
+        name: Run Tests
+        script:
+          - make codeception-vvv
