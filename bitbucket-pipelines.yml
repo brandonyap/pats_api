@@ -1,4 +1,4 @@
-image: zoeslam/php-mysql
+image: svendocker/php-mysql
 
 pipelines:
   default:
