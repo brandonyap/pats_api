@@ -9,10 +9,16 @@ class BeaconCest
 {
     private $createdBeaconId;
 
-    private $createBeaconDataGood = [
+    private $createBeaconWithDescriptionDataGood = [
         "bluetooth_address" => "12:34:56:78:90:12",
         "name" => "Test Beacon",
         "description" => "Blah Blah"
+    ];
+
+    private $createBeaconWithoutDescriptionDataGood = [
+        "bluetooth_address" => "00:11:22:33:44:55",
+        "name" => "Test Beacon 2",
+        "description" => null
     ];
 
     private $createBeaconMissingAddressDataBad = [
@@ -39,15 +45,25 @@ class BeaconCest
     /**
      * @group post
      */
-    public function createNewBeaconSucceeds(AcceptanceTester $I)
+    public function createNewBeaconWithDescriptionSucceeds(AcceptanceTester $I)
     {
-        $I->sendPOST('/beacons', $this->createBeaconDataGood);
+        $I->sendPOST('/beacons', $this->createBeaconWithDescriptionDataGood);
         $I->seeResponseCodeIs(201);
-        $I->seeResponseContainsJson();
+        $I->seeResponseIsJson();
 
         $beaconId = $I->grabResponse();
         $beaconId = json_decode($beaconId, true);
         $this->createdBeaconId = $beaconId['data']['id'];
+    }
+
+    /**
+     * @group post
+     */
+    public function createNewBeaconWithoutDescriptionSucceeds(AcceptanceTester $I)
+    {
+        $I->sendPOST('/beacons', $this->createBeaconWithoutDescriptionDataGood);
+        $I->seeResponseCodeIs(201);
+        $I->seeResponseIsJson();
     }
 
     /**
@@ -56,9 +72,9 @@ class BeaconCest
      */
     public function createDuplicateBeaconFails(AcceptanceTester $I)
     {
-        $I->sendPOST('/beacons', $this->createBeaconDataGood);
+        $I->sendPOST('/beacons', $this->createBeaconWithDescriptionDataGood);
         $I->seeResponseCodeIs(400);
-        $I->seeResponseContainsJson();
+        $I->seeResponseIsJson();
     }
 
     /**
@@ -68,7 +84,7 @@ class BeaconCest
     {
         $I->sendPOST('/beacons', $this->createBeaconMissingAddressDataBad);
         $I->seeResponseCodeIs(400);
-        $I->seeResponseContainsJson();
+        $I->seeResponseIsJson();
     }
 
     /**
@@ -78,7 +94,7 @@ class BeaconCest
     {
         $I->sendPOST('/beacons', $this->createBeaconMissingNameDataBad);
         $I->seeResponseCodeIs(400);
-        $I->seeResponseContainsJson();
+        $I->seeResponseIsJson();
     }
 
     /**
@@ -88,6 +104,9 @@ class BeaconCest
     {
         $I->sendGET("/beacons/{$this->createdBeaconId}");
         $I->seeResponseCodeIs(200);
-        $I->seeResponseContainsJson();
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['bluetooth_address' => $this->createBeaconWithDescriptionDataGood['bluetooth_address']]);
+        $I->seeResponseContainsJson(['name' => $this->createBeaconWithDescriptionDataGood['name']]);
+        $I->seeResponseContainsJson(['description' => $this->createBeaconWithDescriptionDataGood['description']]);
     }
 }
