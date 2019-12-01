@@ -14,4 +14,4 @@ pipelines:
             - make setup-mysql
             - make setup-apache
             - make setup-network
-            - make codeception-vvv
+            - make codeception
