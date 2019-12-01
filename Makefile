@@ -75,6 +75,8 @@ setup-network:
 	docker network connect patsnetwork pats-api
 	docker network connect patsnetwork pats-mysql
 
+update: composer-update composer-dump-autoload
+
 composer-install:
 	docker run --rm -it --volume $(CURDIR):/app prooph/composer:7.3 install
 
