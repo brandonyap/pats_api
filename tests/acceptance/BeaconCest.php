@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+use Helper\Acceptance;
 
 /**
  * @group beacons
@@ -76,6 +78,16 @@ class BeaconCest
     {
         $I->sendPOST('/beacons', $this->createBeaconMissingNameDataBad);
         $I->seeResponseCodeIs(400);
+        $I->seeResponseContainsJson();
+    }
+
+    /**
+     * @group get
+     */
+    public function getBeaconByIdSucceeds(AcceptanceTester $I)
+    {
+        $I->sendGET("/beacons/{$this->createdBeaconId}");
+        $I->seeResponseCodeIs(200);
         $I->seeResponseContainsJson();
     }
 }
