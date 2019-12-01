@@ -44,7 +44,7 @@ To start the tests run the following command:
 
 Or this command for verbose output:
 
-`make test-vvv`
+`make test TEST_OPTIONS="-vvv"`
 
 # Endpoints
 `{{host}}` is `localhost:8888` if running locally.

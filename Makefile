@@ -1,3 +1,4 @@
+TEST_OPTIONS:=-v
 # *************************
 # SERVER CONTROLS 
 # *************************
@@ -47,14 +48,8 @@ reset:
 test: backup 
 	${MAKE} codeception && ${MAKE} restore || ${MAKE} restore
 
-test-vvv: backup
-	${MAKE} codeception-vvv && ${MAKE} restore || ${MAKE} restore
-
 codeception:
-	php vendor/bin/codecept run -v
-
-codeception-vvv:
-	php vendor/bin/codecept run -vvv
+	php vendor/bin/codecept run $(TEST_OPTIONS)
 
 # *************************
 # SETUP
