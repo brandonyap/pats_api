@@ -22,7 +22,7 @@ class BeaconCest
     /**
      * @group post
      */
-    public function createBeaconSucceeds(AcceptanceTester $I)
+    public function createNewBeaconSucceeds(AcceptanceTester $I)
     {
         $I->sendPOST('/beacons', $this->createBeaconDataGood);
         $I->seeResponseCodeIs(201);
@@ -37,7 +37,7 @@ class BeaconCest
      * This will fail because there cannot be duplicate bluetooth_address entries in the db.
      * @group post
      */
-    public function createBeaconFails(AcceptanceTester $I)
+    public function createDuplicateBeaconFails(AcceptanceTester $I)
     {
         $I->sendPOST('/beacons', $this->createBeaconDataGood);
         $I->seeResponseCodeIs(400);
