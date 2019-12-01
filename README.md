@@ -46,6 +46,11 @@ Or this command for verbose output:
 
 `make test TEST_OPTIONS="-vvv"`
 
+## Testing Specific Groups
+To test specific groups of tests run the following command:
+
+`make test TEST_OPTIONS="-vvv --group {group_name}"`
+
 # Endpoints
 `{{host}}` is `localhost:8888` if running locally.
 

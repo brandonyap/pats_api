@@ -1,5 +1,8 @@
 <?php 
 
+/**
+ * @group beacons
+ */
 class BeaconCest
 {
     private $createdBeaconId;
@@ -7,6 +10,18 @@ class BeaconCest
     private $createBeaconDataGood = [
         "bluetooth_address" => "12:34:56:78:90:12",
         "name" => "Test Beacon",
+        "description" => "Blah Blah"
+    ];
+
+    private $createBeaconMissingAddressDataBad = [
+        "bluetooth_address" => null,
+        "name" => "Test Beacon",
+        "description" => "Blah Blah"
+    ];
+
+    private $createBeaconMissingNameDataBad = [
+        "bluetooth_address" => "12:34:56:78:90:12",
+        "name" => null,
         "description" => "Blah Blah"
     ];
 
@@ -40,6 +55,26 @@ class BeaconCest
     public function createDuplicateBeaconFails(AcceptanceTester $I)
     {
         $I->sendPOST('/beacons', $this->createBeaconDataGood);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseContainsJson();
+    }
+
+    /**
+     * @group post
+     */
+    public function createBeaconMissingAddressFails(AcceptanceTester $I)
+    {
+        $I->sendPOST('/beacons', $this->createBeaconMissingAddressDataBad);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseContainsJson();
+    }
+
+    /**
+     * @group post
+     */
+    public function createBeaconMissingNameFails(AcceptanceTester $I)
+    {
+        $I->sendPOST('/beacons', $this->createBeaconMissingNameDataBad);
         $I->seeResponseCodeIs(400);
         $I->seeResponseContainsJson();
     }
