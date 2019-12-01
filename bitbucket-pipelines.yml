@@ -4,7 +4,7 @@ pipelines:
   default:
     - step:
         name: Build & Run PATS
-        caches:
+        services:
           - docker
         script:
           - docker run --rm --volume $(pwd):/app prooph/composer:7.3 install
