@@ -4,7 +4,7 @@ pipelines:
   pull-requests:
     '**':
       - step:
-          name: Build & Run PATS
+          name: Build & Test PATS
           services:
             - docker
           script:
