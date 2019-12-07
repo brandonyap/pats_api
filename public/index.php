@@ -90,11 +90,53 @@ class Router
 
         // api/beacons/{id}
         $api->group('/beacons/{id}', function (RouteCollectorProxy $beacons) {
-            // GET api/beacons
+            // GET api/beacons/{id}
             $beacons->get('', function (Request $request, Response $response, $args) {
                 list($result, $status) = $this->beacon_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
+
+            // PUT api/beacons/{id}
+
+            // DELETE api/beacons/{id}
+        });
+
+        // api/beacons/group
+        $api->group('/beacons/group', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons/group/all
+
+            // POST api/beacons/group
+        });
+
+        // api/beacons/group/{group_id}
+        $api->group('/beacons/group/{id}', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons/group/{id}
+
+            // PUT api/beacons/group/{id}
+
+            // DELETE api/beacons/group/{id}
+        });
+
+        // api/beacons/group/{group_id}/location
+        $api->group('/beacons/group/{id}/location', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons/group/{id}/location/all
+            
+            // POST api/beacons/group/{id}/location
+
+            // PUT api/beacons/group/{id}/location/{beacon_id}
+
+            // DELETE api/beacons/group/{id}/location/{beacon_id}
+        });
+
+        // api/beacons/group/{group_id}/restricted
+        $api->group('/beacons/group/{id}/restricted', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons/group/{id}/restricted/all
+            
+            // POST api/beacons/group/{id}/restricted
+
+            // PUT api/beacons/group/{id}/restricted/{restricted_id}
+
+            // DELETE api/beacons/group/{id}/restricted/{restricted_id}
         });
     }
 
@@ -103,25 +145,95 @@ class Router
     {
         // api/sensors
         $api->group('/sensors', function (RouteCollectorProxy $sensors) {
-            $sensors->get('', function (Request $request, Response $response, $args) {
-                $data = $this->route_helper->get($request);
-                return $this->route_helper->response($response, $data, 200);
-            });
+            // GET api/sensors/all
 
-            $sensors->post('', function (Request $request, Response $response, $args) {
-                $data = $this->route_helper->post($request);
-                return $this->route_helper->response($response, $data, 201);
-            });
+            // POST api/sensors
 
-            $sensors->put('', function (Request $request, Response $response, $args) {
-                $data = $this->route_helper->put($request);
-                return $this->route_helper->response($response, $data, 200);
-            });
+            // $sensors->get('', function (Request $request, Response $response, $args) {
+            //     $data = $this->route_helper->get($request);
+            //     return $this->route_helper->response($response, $data, 200);
+            // });
 
-            $sensors->delete('', function (Request $request, Response $response, $args) {
-                $data = $this->route_helper->delete($request);
-                return $this->route_helper->response($response, $data, 200);
-            });
+            // $sensors->post('', function (Request $request, Response $response, $args) {
+            //     $data = $this->route_helper->post($request);
+            //     return $this->route_helper->response($response, $data, 201);
+            // });
+
+            // $sensors->put('', function (Request $request, Response $response, $args) {
+            //     $data = $this->route_helper->put($request);
+            //     return $this->route_helper->response($response, $data, 200);
+            // });
+
+            // $sensors->delete('', function (Request $request, Response $response, $args) {
+            //     $data = $this->route_helper->delete($request);
+            //     return $this->route_helper->response($response, $data, 200);
+            // });
+        });
+
+        // api/sensors/{id}
+        $api->group('/sensors/{id}', function (RouteCollectorProxy $sensors) {
+            // GET api/sensors/{id}
+
+            // PUT api/sensors/{id}
+
+            // DELETE api/sensors/{id}
+        });
+
+        // api/sensors/{id}/location
+        $api->group('/sensors/{id}/location', function (RouteCollectorProxy $sensors) {
+            // GET api/sensors/{id}/location
+
+            // GET api/sensors/{id}/location/history
+
+            // POST api/sensors/{id}/location
+        });
+    }
+
+    // TODO.
+    private function patientRoutes($api)
+    {
+        // api/patients
+        $api->group('/patients', function (RouteCollectorProxy $patients) {
+            // GET api/patients/all
+
+            // POST api/patients
+        });
+
+        // api/patients/{id}
+        $api->group('/patients/{id}', function (RouteCollectorProxy $patients) {
+            // GET api/patients/{id}
+
+            // POST api/patients/{id}/restricted
+
+            // PUT api/patients/{id}/restricted
+
+            // PUT api/patients/{id}
+
+            // DELETE api/patients/{id}
+        });
+    }
+
+    // TODO.
+    private function mapRoutes($api)
+    {
+        // api/maps
+        $api->group('/maps', function (RouteCollectorProxy $maps) {
+            // GET api/maps/all
+
+            // POST api/maps
+        });
+
+        // api/maps/{id}
+        $api->group('/maps/{id}', function (RouteCollectorProxy $maps) {
+            // GET api/maps/{id}
+
+            // POST api/maps/{id}/restricted
+
+            // PUT api/maps/{id}/restricted
+
+            // PUT api/maps/{id}
+
+            // DELETE api/maps/{id}
         });
     }
 

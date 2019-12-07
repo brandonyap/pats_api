@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2019-12-07 18:42:17 +0000
+# Generation Time: 2019-12-07 22:09:03 +0000
 # ************************************************************
 
 
@@ -108,6 +108,7 @@ DROP TABLE IF EXISTS `patients`;
 
 CREATE TABLE `patients` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `sensors_id` int(11) DEFAULT NULL,
   `first_name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `last_name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `birthday` date NOT NULL,
