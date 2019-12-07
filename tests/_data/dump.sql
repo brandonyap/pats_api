@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2019-11-10 16:05:47 +0000
+# Generation Time: 2019-12-07 18:42:17 +0000
 # ************************************************************
 
 
@@ -68,6 +68,59 @@ CREATE TABLE `beacons_group_locations` (
 
 
 
+# Dump of table beacons_group_restricted
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `beacons_group_restricted`;
+
+CREATE TABLE `beacons_group_restricted` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(26) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `group_id` int(11) NOT NULL,
+  `location_x_min` float NOT NULL,
+  `location_y_min` float NOT NULL,
+  `location_x_max` float NOT NULL,
+  `location_y_max` float NOT NULL,
+  `comments` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table map
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `map`;
+
+CREATE TABLE `map` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table patients
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `patients`;
+
+CREATE TABLE `patients` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `last_name` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `birthday` date NOT NULL,
+  `hospital_id` int(11) NOT NULL,
+  `physician` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `caretaker` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `comments` text COLLATE utf8mb4_unicode_ci,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
 # Dump of table sensors
 # ------------------------------------------------------------
 
@@ -111,6 +164,18 @@ CREATE TABLE `sensors_locations_history` (
   `location_y` float NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+# Dump of table sensors_locations_restricted
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sensors_locations_restricted`;
+
+CREATE TABLE `sensors_locations_restricted` (
+  `sensor_id` int(11) NOT NULL,
+  `restricted_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
