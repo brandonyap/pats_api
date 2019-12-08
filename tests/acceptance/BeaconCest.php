@@ -125,4 +125,14 @@ class BeaconCest
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
     }
+
+    /**
+     * @group delete
+     */
+    public function deleteBeaconByIdSucceeds(AcceptanceTester $I) 
+    {
+        $I->sendDELETE("/beacons/{$this->createdBeaconId}");
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+    }
 }
