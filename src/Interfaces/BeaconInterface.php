@@ -59,7 +59,7 @@ class BeaconInterface extends PatsInterface
 
     /**
      * Gets all of the current beacons in the database.
-     * @return array of beacons.
+     * @return array of BeaconModel's.
      */
     public function getAll()
     {
@@ -102,6 +102,11 @@ class BeaconInterface extends PatsInterface
     // UPDATE METHODS
     //======================================================================
 
+    /**
+     * Updates a beacon to be put into the beacons table.
+     * @param array $data is the data from the parsed body
+     * @return int for beacon ID or false if the query wasn't completed
+     */
     public function update($data)
     {
         $sql = "UPDATE beacons
@@ -138,6 +143,11 @@ class BeaconInterface extends PatsInterface
     // DELETE METHODS
     //======================================================================
 
+    /**
+     * Deletes a beacon in the beacons table.
+     * @param array $data is the id
+     * @return int for beacon ID or false if the query wasn't completed
+     */
     public function delete($data)
     {
         $sql = "DELETE FROM beacons WHERE id = :id";
