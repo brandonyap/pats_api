@@ -75,6 +75,11 @@ class BeaconInterface extends PatsInterface
         return $results;
     }
 
+    /**
+     * Gets the information on the given beacon id.
+     * @param int $id is the beacon id.
+     * @return BeaconModel or false if not found.
+     */
     public function getById($id)
     {
         $sql = "SELECT * FROM beacons WHERE id = :id";
@@ -88,6 +93,61 @@ class BeaconInterface extends PatsInterface
 
         if (count($query) > 0) {
             return $this->createModel($query[0]);
+        } else {
+            return false;
+        }
+    }
+
+    //======================================================================
+    // UPDATE METHODS
+    //======================================================================
+
+    public function update($data)
+    {
+        $sql = "UPDATE beacons
+            SET bluetooth_address = :bluetooth_address,
+                name = :name,
+                description = :description
+            WHERE id = :id";
+
+        $beacon_model = $this->createModel($data);
+        try {
+            $beacon_model->validate();
+        } catch (PatsException $e) {
+            error_log($e);
+            return false;
+        }
+
+        $args = [
+            ':bluetooth_address' => $beacon_model->bluetooth_address,
+            ':name' => $beacon_model->name,
+            ':description' => $beacon_model->description,
+            ':id' => $beacon_model->id
+        ];
+
+        $result = $this->db->execQuery($sql, $args);
+
+        if ($result) {
+            return $beacon_model->id;
+        } else {
+            return false;
+        }
+    }
+
+    //======================================================================
+    // DELETE METHODS
+    //======================================================================
+
+    public function delete($data)
+    {
+        $sql = "DELETE FROM beacons WHERE id = :id";
+
+        $args = [':id' => $data['id']];
+
+        $result = $this->db->execQuery($sql, $args);
+
+        if ($result) {
+            return $data['id'];
         } else {
             return false;
         }

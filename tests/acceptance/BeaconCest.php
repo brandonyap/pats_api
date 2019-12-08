@@ -15,6 +15,12 @@ class BeaconCest
         "description" => "Blah Blah"
     ];
 
+    private $updateBeaconWithDescriptionDataGood = [
+        "bluetooth_address" => "11:22:33:44:55:66",
+        "name" => "Test Beacon",
+        "description" => "Blah Blah"
+    ];
+
     private $createBeaconWithoutDescriptionDataGood = [
         "bluetooth_address" => "00:11:22:33:44:55",
         "name" => "Test Beacon 2",
@@ -108,5 +114,15 @@ class BeaconCest
         $I->seeResponseContainsJson(['bluetooth_address' => $this->createBeaconWithDescriptionDataGood['bluetooth_address']]);
         $I->seeResponseContainsJson(['name' => $this->createBeaconWithDescriptionDataGood['name']]);
         $I->seeResponseContainsJson(['description' => $this->createBeaconWithDescriptionDataGood['description']]);
+    }
+
+    /**
+     * @group put
+     */
+    public function updateBeaconByIdSucceeds(AcceptanceTester $I) 
+    {
+        $I->sendPUT("/beacons/{$this->createdBeaconId}", $this->updateBeaconWithDescriptionDataGood);
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
     }
 }

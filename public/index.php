@@ -97,8 +97,17 @@ class Router
             });
 
             // PUT api/beacons/{id}
+            $beacons->put('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->put($request);
+                list($result, $status) = $this->beacon_controller->put_id($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // DELETE api/beacons/{id}
+            $beacons->delete('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->beacon_controller->delete_id($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/beacons/group

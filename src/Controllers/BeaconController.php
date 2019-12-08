@@ -17,6 +17,10 @@ class BeaconController extends RESTController
         $this->beacon_interface = new BeaconInterface();
     }
 
+    //======================================================================
+    // GET
+    //======================================================================
+
     /**
      * GET /beacons
      */
@@ -43,6 +47,10 @@ class BeaconController extends RESTController
         }
     }
 
+    //======================================================================
+    // POST
+    //======================================================================
+
     /**
      * POST /beacons
      */
@@ -55,5 +63,46 @@ class BeaconController extends RESTController
         }
 
         return $this->response(true, ['id' => $result], 201);
+    }
+
+    //======================================================================
+    // PUT
+    //======================================================================
+
+    /**
+     * PUT /beacons/{id}
+     */
+    public function put_id($args, $data)
+    {
+        if (!isset($args['id'])) {
+            return $this->response(false, "Error: Invalid ID. Beacon not updated", 400);
+        }
+
+        $data['id'] = $args['id'];
+        $result = $this->beacon_interface->update($data);
+
+        if (!$result) {
+            return $this->response(false, "Error: Beacon not updated", 400);
+        }
+
+        return $this->response(true, ['id' => $result], 200);
+    }
+
+    //======================================================================
+    // DELETE
+    //======================================================================
+
+    /**
+     * DELETE /beacons/{id}
+     */
+    public function delete_id($data)
+    {
+        $result = $this->beacon_interface->delete($data);
+
+        if (!$result) {
+            return $this->response(false, "Error: Beacon not deleted", 400);
+        }
+
+        return $this->response(true, ['id' => $result], 200);
     }
 }
