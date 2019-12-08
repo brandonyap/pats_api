@@ -154,29 +154,9 @@ class Router
     {
         // api/sensors
         $api->group('/sensors', function (RouteCollectorProxy $sensors) {
-            // GET api/sensors/all
+            // GET api/sensors/all(?active={bool})
 
             // POST api/sensors
-
-            // $sensors->get('', function (Request $request, Response $response, $args) {
-            //     $data = $this->route_helper->get($request);
-            //     return $this->route_helper->response($response, $data, 200);
-            // });
-
-            // $sensors->post('', function (Request $request, Response $response, $args) {
-            //     $data = $this->route_helper->post($request);
-            //     return $this->route_helper->response($response, $data, 201);
-            // });
-
-            // $sensors->put('', function (Request $request, Response $response, $args) {
-            //     $data = $this->route_helper->put($request);
-            //     return $this->route_helper->response($response, $data, 200);
-            // });
-
-            // $sensors->delete('', function (Request $request, Response $response, $args) {
-            //     $data = $this->route_helper->delete($request);
-            //     return $this->route_helper->response($response, $data, 200);
-            // });
         });
 
         // api/sensors/{id}
@@ -190,10 +170,6 @@ class Router
 
         // api/sensors/{id}/location
         $api->group('/sensors/{id}/location', function (RouteCollectorProxy $sensors) {
-            // GET api/sensors/{id}/location
-
-            // GET api/sensors/{id}/location/history
-
             // POST api/sensors/{id}/location
         });
     }
@@ -205,12 +181,18 @@ class Router
         $api->group('/patients', function (RouteCollectorProxy $patients) {
             // GET api/patients/all
 
+            // GET api/patients/locations/all
+
             // POST api/patients
         });
 
         // api/patients/{id}
         $api->group('/patients/{id}', function (RouteCollectorProxy $patients) {
             // GET api/patients/{id}
+
+            // GET api/patients/{id}/location
+
+            // GET api/patients/{id}/location/history
 
             // POST api/patients/{id}/restricted
 

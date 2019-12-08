@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2019-12-07 22:09:03 +0000
+# Generation Time: 2019-12-08 19:32:21 +0000
 # ************************************************************
 
 
@@ -175,7 +175,7 @@ CREATE TABLE `sensors_locations_history` (
 DROP TABLE IF EXISTS `sensors_locations_restricted`;
 
 CREATE TABLE `sensors_locations_restricted` (
-  `sensor_id` int(11) NOT NULL,
+  `sensors_id` int(11) NOT NULL,
   `restricted_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
