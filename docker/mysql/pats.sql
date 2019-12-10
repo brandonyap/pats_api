@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2019-12-08 19:32:21 +0000
+# Generation Time: 2019-12-10 04:23:19 +0000
 # ************************************************************
 
 
@@ -96,7 +96,8 @@ CREATE TABLE `map` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `group_id` int(11) NOT NULL,
   `url` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -117,7 +118,9 @@ CREATE TABLE `patients` (
   `caretaker` varchar(26) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `comments` text COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `hospital_id` (`hospital_id`),
+  UNIQUE KEY `sensors_id` (`sensors_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

@@ -3,18 +3,18 @@
 namespace pats\Controllers;
 
 use pats\Controllers\RESTController;
-use pats\Interfaces\BeaconInterface;
+use pats\Interfaces\SensorInterface;
 
-class BeaconController extends RESTController
+class SensorController extends RESTController
 {
-    private $beacon_interface;
+    private $sensor_interface;
 
     /**
      * Constructs the controller.
      */
     public function __construct()
     {
-        $this->beacon_interface = new BeaconInterface();
+        $this->sensor_interface = new SensorInterface();
     }
 
     //======================================================================
@@ -22,25 +22,30 @@ class BeaconController extends RESTController
     //======================================================================
 
     /**
-     * GET /beacons/all
+     * GET /sensors
      */
-    public function get_index()
+    public function get_index($data)
     {
-        $result = $this->beacon_interface->getAll();
+        if (isset($data['active'])) {
+            $active = $data['active'] === 'true' ? true : false;
+            $result = $this->sensor_interface->getAll($active);
+        } else {
+            $result = $this->sensor_interface->getAll();
+        }
         return $this->response(true, $result, 200);
     }
 
     /**
-     * GET /beacons/{id}
+     * GET /sensors/{id}
      */
     public function get_byId($data)
     {
         if (isset($data['id'])) {
-            $result = $this->beacon_interface->getById($data['id']);
+            $result = $this->sensor_interface->getById($data['id']);
             if ($result) {
                 return $this->response(true, $result, 200);
             } else {
-                return $this->response(false, "Beacon not found.", 404);
+                return $this->response(false, "Sensor not found.", 404);
             }
         } else {
             return $this->response(false, "Please provide an ID.", 400);
@@ -52,14 +57,14 @@ class BeaconController extends RESTController
     //======================================================================
 
     /**
-     * POST /beacons
+     * POST /sensors
      */
     public function post_index($data)
     {
-        $result = $this->beacon_interface->create($data);
+        $result = $this->sensor_interface->create($data);
 
         if (!$result) {
-            return $this->response(false, "Error: Beacon entry not created", 400);
+            return $this->response(false, "Error: Sensor entry not created", 400);
         }
 
         return $this->response(true, ['id' => $result], 201);
@@ -70,19 +75,19 @@ class BeaconController extends RESTController
     //======================================================================
 
     /**
-     * PUT /beacons/{id}
+     * PUT /sensors/{id}
      */
     public function put_id($args, $data)
     {
         if (!isset($args['id'])) {
-            return $this->response(false, "Error: Invalid ID. Beacon not updated", 400);
+            return $this->response(false, "Error: Invalid ID. Sensor not updated", 400);
         }
 
         $data['id'] = $args['id'];
-        $result = $this->beacon_interface->update($data);
+        $result = $this->sensor_interface->update($data);
 
         if (!$result) {
-            return $this->response(false, "Error: Beacon not updated", 400);
+            return $this->response(false, "Error: Sensor not updated", 400);
         }
 
         return $this->response(true, ['id' => $result], 200);
@@ -97,10 +102,10 @@ class BeaconController extends RESTController
      */
     public function delete_id($data)
     {
-        $result = $this->beacon_interface->delete($data);
+        $result = $this->sensor_interface->delete($data);
 
         if (!$result) {
-            return $this->response(false, "Error: Beacon not deleted", 400);
+            return $this->response(false, "Error: Sensor not deleted", 400);
         }
 
         return $this->response(true, ['id' => $result], 200);

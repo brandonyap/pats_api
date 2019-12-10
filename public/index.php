@@ -24,6 +24,7 @@ class Router
 
         // Load Controllers
         $this->beacon_controller = new Controllers\BeaconController();
+        $this->sensor_controller = new Controllers\SensorController();
 
         // Load Routes
         $this->testRoutes($app);
@@ -155,17 +156,40 @@ class Router
         // api/sensors
         $api->group('/sensors', function (RouteCollectorProxy $sensors) {
             // GET api/sensors/all(?active={bool})
+            $sensors->get('/all', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->get($request);
+                list($result, $status) = $this->sensor_controller->get_index($data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // POST api/sensors
+            $sensors->post('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->post($request);
+                list($result, $status) = $this->sensor_controller->post_index($data);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/sensors/{id}
         $api->group('/sensors/{id}', function (RouteCollectorProxy $sensors) {
             // GET api/sensors/{id}
+            $sensors->get('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->sensor_controller->get_byId($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // PUT api/sensors/{id}
+            $sensors->put('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->put($request);
+                list($result, $status) = $this->sensor_controller->put_id($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // DELETE api/sensors/{id}
+            $sensors->delete('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->sensor_controller->delete_id($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/sensors/{id}/location
