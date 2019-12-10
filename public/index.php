@@ -251,25 +251,6 @@ class Router
             // DELETE api/maps/{id}
         });
     }
-
-    //======================================================================
-    // HANDLERS
-    //======================================================================
-    private function NotFoundHandler()
-    {
-        $c = new \Slim\Container(); //Create Your container
-
-        //Override the default Not Found Handler before creating App
-        $c['notFoundHandler'] = function ($c) {
-            return function ($request, $response) use ($c) {
-                return $response->withStatus(404)
-                    ->withHeader('Content-Type', 'text/html')
-                    ->write('Endpoint not found');
-            };
-        };
-
-        return $c;
-    }
 }
 
 // This runs the app
