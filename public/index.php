@@ -224,6 +224,10 @@ class Router
         // api/patients/{id}
         $api->group('/patients/{id}', function (RouteCollectorProxy $patients) {
             // GET api/patients/{id}
+            $patients->get('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->patient_controller->get_byId($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // GET api/patients/{id}/location
 

@@ -77,7 +77,7 @@ class PatientInterface extends PatsInterface
 
     /**
      * Gets all of the current patients in the database.
-     * @return array of SensorModels's.
+     * @return array of PatientModel's.
      */
     public function getAll()
     {
@@ -94,26 +94,26 @@ class PatientInterface extends PatsInterface
     }
 
     /**
-     * Gets the information on the given sensor id.
-     * @param int $id is the sensor id.
-     * @return SensorModel or false if not found.
+     * Gets the information on the given patient id.
+     * @param int $id is the patient id.
+     * @return PatientModel or false if not found.
      */
     public function getById($id)
     {
-        // $sql = "SELECT * FROM sensors WHERE id = :id";
-        // $args[':id'] = $id;
+        $sql = "SELECT * FROM patients WHERE id = :id";
+        $args[':id'] = $id;
 
-        // $query = $this->db->query($sql, $args);
+        $query = $this->db->query($sql, $args);
 
-        // if (!$query) {
-        //     return false;
-        // }
+        if (!$query) {
+            return false;
+        }
 
-        // if (count($query) > 0) {
-        //     return $this->createModel($query[0]);
-        // } else {
-        //     return false;
-        // }
+        if (count($query) > 0) {
+            return $this->createModel($query[0]);
+        } else {
+            return false;
+        }
     }
 
     //======================================================================

@@ -30,6 +30,23 @@ class PatientController extends RESTController
         return $this->response(true, $result, 200);
     }
 
+    /**
+     * GET /patients/{id}
+     */
+    public function get_byId($data)
+    {
+        if (isset($data['id'])) {
+            $result = $this->patient_interface->getById($data['id']);
+            if ($result) {
+                return $this->response(true, $result, 200);
+            } else {
+                return $this->response(false, "Patient not found.", 404);
+            }
+        } else {
+            return $this->response(false, "Please provide an ID.", 400);
+        }
+    }
+
     //======================================================================
     // POST
     //======================================================================
