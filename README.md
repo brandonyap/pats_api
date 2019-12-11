@@ -76,7 +76,7 @@ PUT `{{host}}/api/beacons/{id}` with x-www-form-urlencoded data or json:
 DELETE `{{host}}/api/beacons/{id}`
 
 ## Sensors
-GET `{{host}}/api/sensors/all`
+GET `{{host}}/api/sensors/all?active={boolean}` true means being used by a patient and false means not being used. `active` is also optional so if it is not declared then it will display all sensors.
 
 POST `{{host}}/api/sensors` with x-www-form-urlencoded data or json:
 ```
