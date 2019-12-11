@@ -54,9 +54,64 @@ To test specific groups of tests run the following command:
 # Endpoints
 `{{host}}` is `localhost:8888` if running locally.
 
-GET `{{host}}/api/beacons`
+## Beacons
+GET `{{host}}/api/beacons/all`
 
-POST `{{host}}/api/beacons` with x-www-form-urlencoded data
+POST `{{host}}/api/beacons` with x-www-form-urlencoded data or json:
+```
+	bluetooth_address:{bluetooth_address} with format 11:22:33:44:55:66 (unique)
+	name:{name}
+	description:{description} (optional)
+```
+
+GET `{{host}}/api/beacons/{id}`
+
+PUT `{{host}}/api/beacons/{id}` with x-www-form-urlencoded data or json:
+```
+	bluetooth_address:{bluetooth_address} with format 11:22:33:44:55:66 (unique)
+	name:{name}
+	description:{description} (optional)
+```
+
+DELETE `{{host}}/api/beacons/{id}`
+
+## Sensors
+GET `{{host}}/api/sensors/all`
+
+POST `{{host}}/api/sensors` with x-www-form-urlencoded data or json:
+```
+	bluetooth_address:{bluetooth_address} with format 11:22:33:44:55:66 (unique)
+	name:{name}
+	description:{description} (optional)
+```
+
+GET `{{host}}/api/sensors/{id}`
+
+PUT `{{host}}/api/sensors/{id}` with x-www-form-urlencoded data or json:
+```
+	bluetooth_address:{bluetooth_address} with format 11:22:33:44:55:66 (unique)
+	name:{name}
+	description:{description} (optional)
+```
+
+DELETE `{{host}}/api/sensors/{id}`
+
+## Patients
+GET `{{host}}/api/patients/all`
+
+GET `{{host}}/api/patients/{id}`
+
+POST `{{host}}/api/patients` with x-www-form-urlencoded data or json:
+```
+	sensors_id:{sensors_id} (must be existing) (unique)
+	first_name:{name}
+	last_name:{name}
+	birthday:{birthday} format: 2000-01-01
+	hospital_id:{hospital_id} (unique)
+	physician:{physician_name}
+	caretaker:{caretaker_name}
+```
+
 
 # Cleaning up the project
 When you're finished with the project and no longer want any of the Docker containers and networks on your computer run the following command:
