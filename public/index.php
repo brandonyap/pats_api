@@ -238,8 +238,17 @@ class Router
             // PUT api/patients/{id}/restricted
 
             // PUT api/patients/{id}
+            $patients->put('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->put($request);
+                list($result, $status) = $this->patient_controller->put_id($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // DELETE api/patients/{id}
+            $patients->delete('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->patient_controller->delete_id($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
     }
 

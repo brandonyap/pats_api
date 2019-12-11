@@ -112,6 +112,18 @@ POST `{{host}}/api/patients` with x-www-form-urlencoded data or json:
 	caretaker:{caretaker_name}
 ```
 
+PUT `{{host}}/api/patients/{id}` with x-www-form-urlencoded data or json:
+```
+	sensors_id:{sensors_id} (must be existing) (unique)
+	first_name:{name}
+	last_name:{name}
+	birthday:{birthday} format: 2000-01-01
+	hospital_id:{hospital_id} (unique)
+	physician:{physician_name}
+	caretaker:{caretaker_name}
+```
+
+DELETE `{{host}}/api/patients/{id}`
 
 # Cleaning up the project
 When you're finished with the project and no longer want any of the Docker containers and networks on your computer run the following command:

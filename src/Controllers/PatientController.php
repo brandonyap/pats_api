@@ -69,7 +69,40 @@ class PatientController extends RESTController
     // PUT
     //======================================================================
 
+    /**
+     * PUT /patients/{id}
+     */
+    public function put_id($args, $data)
+    {
+        if (!isset($args['id'])) {
+            return $this->response(false, "Error: Invalid ID. Patient not updated", 400);
+        }
+
+        $data['id'] = $args['id'];
+        $result = $this->patient_interface->update($data);
+
+        if (!$result) {
+            return $this->response(false, "Error: Patient not updated", 400);
+        }
+
+        return $this->response(true, ['id' => $result], 200);
+    }
+
     //======================================================================
     // DELETE
     //======================================================================
+
+    /**
+     * DELETE /patients/{id}
+     */
+    public function delete_id($data)
+    {
+        $result = $this->patient_interface->delete($data);
+
+        if (!$result) {
+            return $this->response(false, "Error: Patient not deleted", 400);
+        }
+
+        return $this->response(true, ['id' => $result], 200);
+    }
 }

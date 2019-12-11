@@ -163,7 +163,7 @@ class SensorInterface extends PatsInterface
         if (isset($data['active'])) {
             $args = [
                 ':id' => $data['id'],
-                ':active' => $data['active']
+                ':active' => intval($data['active'])
             ];
         } else {
             return false;

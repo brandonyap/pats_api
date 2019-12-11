@@ -127,63 +127,49 @@ class PatientInterface extends PatsInterface
      */
     public function update($data)
     {
-        // $sql = "UPDATE sensors
-        //     SET bluetooth_address = :bluetooth_address,
-        //         name = :name,
-        //         description = :description
-        //     WHERE id = :id";
+        $sql = "UPDATE patients
+            SET sensors_id = :sensors_id,
+                first_name = :first_name,
+                last_name = :last_name,
+                birthday = :birthday,
+                hospital_id = :hospital_id,
+                physician = :physician,
+                caretaker = :caretaker,
+                comments = :comments
+            WHERE id = :id";
 
-        // $sensor_model = $this->createModel($data);
-        // try {
-        //     $sensor_model->validate();
-        // } catch (PatsException $e) {
-        //     error_log($e);
-        //     return false;
-        // }
+        $patient_model = $this->createModel($data);
+        try {
+            $patient_model->validate();
+        } catch (PatsException $e) {
+            error_log($e);
+            return false;
+        }
 
-        // $args = [
-        //     ':bluetooth_address' => $sensor_model->bluetooth_address,
-        //     ':name' => $sensor_model->name,
-        //     ':description' => $sensor_model->description,
-        //     ':id' => $sensor_model->id
-        // ];
+        $args = [
+            ':sensors_id' => $patient_model->sensors_id,
+            ':first_name' => $patient_model->first_name,
+            ':last_name' => $patient_model->last_name,
+            ':birthday' => $patient_model->birthday,
+            ':hospital_id' => $patient_model->hospital_id,
+            ':physician' => $patient_model->physician,
+            ':caretaker' => $patient_model->caretaker,
+            ':comments' => $patient_model->comments,
+            ':id' => $patient_model->id
+        ];
 
-        // $result = $this->db->execQuery($sql, $args);
+        $patient = $this->getById($patient_model->id);
+        $result = $this->db->execQuery($sql, $args);
 
-        // if ($result) {
-        //     return $sensor_model->id;
-        // } else {
-        //     return false;
-        // }
-    }
-
-    /**
-     * Updates a sensor to be put into the sensors table.
-     * @param array $data is the data from the parsed body
-     * @return int for sensor ID or false if the query wasn't completed
-     */
-    public function updateActive($data)
-    {
-        // $sql = "UPDATE sensors
-        //     SET active = :active
-        //     WHERE id = :id";
-
-        // if (isset($data['active'])) {
-        //     $args = [
-        //         ':id' => $data['id'],
-        //         ':active' => $data['active']
-        //     ];
-        // } else {
-        //     return false;
-        // }
-
-        // $result = $this->db->execQuery($sql, $args);
-
-        // if ($result) {
-        //     return $data['id'];
-        // } else {
-        //     return false;
-        // }
+        if ($result) {
+            if ($patient->sensors_id != $patient_model->sensors_id) {
+                $this->sensor_interface->updateActive(['id' => $patient->sensors_id, 'active' => false]);
+                $this->sensor_interface->updateActive(['id' => $patient_model->sensors_id, 'active' => true]);
+            }
+            return $patient_model;
+        } else {
+            return false;
+        }
     }
 
     //======================================================================
@@ -191,23 +177,25 @@ class PatientInterface extends PatsInterface
     //======================================================================
 
     /**
-     * Deletes a sensor in the sensors table.
+     * Deletes a patient in the patients table.
      * @param array $data is the id
-     * @return int for sensor ID or false if the query wasn't completed
+     * @return int for patient ID or false if the query wasn't completed
      */
     public function delete($data)
     {
-        // $sql = "DELETE FROM sensors WHERE id = :id";
+        $sql = "DELETE FROM patients WHERE id = :id";
 
-        // $args = [':id' => $data['id']];
+        $args = [':id' => $data['id']];
 
-        // $result = $this->db->execQuery($sql, $args);
+        $patient = $this->getById($data['id']);
+        $result = $this->db->execQuery($sql, $args);
 
-        // if ($result) {
-        //     return $data['id'];
-        // } else {
-        //     return false;
-        // }
+        if ($result) {
+            $this->sensor_interface->updateActive(['id' => $patient->sensors_id, 'active' => false]);
+            return $data['id'];
+        } else {
+            return false;
+        }
     }
 
     //======================================================================
@@ -223,10 +211,10 @@ class PatientInterface extends PatsInterface
         $model = new PatientModel();
 
         if (isset($data['id'])) {
-            $model->id = $data['id'];
+            $model->id = intval($data['id']);
         }
         if (isset($data['sensors_id'])) {
-            $model->sensors_id = $data['sensors_id'];
+            $model->sensors_id = intval($data['sensors_id']);
         }
         if (isset($data['first_name'])) {
             $model->first_name = $data['first_name'];
