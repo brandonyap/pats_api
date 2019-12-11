@@ -25,6 +25,7 @@ class Router
         // Load Controllers
         $this->beacon_controller = new Controllers\BeaconController();
         $this->sensor_controller = new Controllers\SensorController();
+        $this->patient_controller = new Controllers\PatientController();
 
         // Load Routes
         $this->testRoutes($app);
@@ -44,6 +45,7 @@ class Router
         $app->group('/api', function (RouteCollectorProxy $api) {
             $this->beaconRoutes($api);
             $this->sensorRoutes($api);
+            $this->patientRoutes($api);
         });
     }
 
@@ -204,10 +206,19 @@ class Router
         // api/patients
         $api->group('/patients', function (RouteCollectorProxy $patients) {
             // GET api/patients/all
+            $patients->get('/all', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->patient_controller->get_index();
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // GET api/patients/locations/all
 
             // POST api/patients
+            $patients->post('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->post($request);
+                list($result, $status) = $this->patient_controller->post_index($data);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/patients/{id}

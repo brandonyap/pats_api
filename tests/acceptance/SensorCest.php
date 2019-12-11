@@ -3,7 +3,7 @@
 use Helper\Acceptance;
 
 /**
- * @group beacons
+ * @group sensors
  */
 class SensorCest
 {
@@ -16,7 +16,7 @@ class SensorCest
     ];
 
     private $updateSensorWithDescriptionDataGood = [
-        "bluetooth_address" => "11:22:33:44:55:66",
+        "bluetooth_address" => "22:22:33:44:55:66",
         "name" => "Test Sensor",
         "description" => "Blah Blah"
     ];

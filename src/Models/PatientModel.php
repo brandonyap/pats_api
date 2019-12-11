@@ -50,10 +50,6 @@ class PatientModel extends PatsModel
             throw new PatsException("Caretaker not set");
         }
 
-        if (!isset($this->active)) {
-            throw new PatsException("Active not set");
-        }
-
         return true;
     }
 }
