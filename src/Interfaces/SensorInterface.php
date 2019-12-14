@@ -48,7 +48,7 @@ class SensorInterface extends PatsInterface
         $result = $this->db->execQuery($sql, $args);
 
         if ($result) {
-            return $this->db->lastInsertId();
+            return intval($this->db->lastInsertId());
         } else {
             return false;
         }
@@ -215,7 +215,7 @@ class SensorInterface extends PatsInterface
         $model = new SensorModel();
 
         if (isset($data['id'])) {
-            $model->id = $data['id'];
+            $model->id = intval($data['id']);
         }
         if (isset($data['bluetooth_address'])) {
             $model->bluetooth_address = $data['bluetooth_address'];
