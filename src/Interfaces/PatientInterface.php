@@ -63,8 +63,8 @@ class PatientInterface extends PatsInterface
 
         if ($result) {
             $id = $this->db->lastInsertId();
-            $this->sensor_interface->updateActive(['id' => $id, 'active' => true]);
-            $patient_model->id = $id;
+            $this->sensor_interface->updateActive(['id' => $patient_model->sensors_id, 'active' => true]);
+            $patient_model->id = intval($id);
             return $patient_model;
         } else {
             return false;
