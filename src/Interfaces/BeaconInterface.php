@@ -47,7 +47,7 @@ class BeaconInterface extends PatsInterface
         $result = $this->db->execQuery($sql, $args);
 
         if ($result) {
-            return $this->db->lastInsertId();
+            return intval($this->db->lastInsertId());
         } else {
             return false;
         }
@@ -176,7 +176,7 @@ class BeaconInterface extends PatsInterface
         $model = new BeaconModel();
 
         if (isset($data['id'])) {
-            $model->id = $data['id'];
+            $model->id = intval($data['id']);
         }
         if (isset($data['bluetooth_address'])) {
             $model->bluetooth_address = $data['bluetooth_address'];
