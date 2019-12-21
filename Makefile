@@ -1,4 +1,6 @@
 TEST_OPTIONS:=-v
+COMPOSER_IMAGE:=prooph/composer:7.3
+
 # *************************
 # SERVER CONTROLS 
 # *************************
@@ -73,13 +75,13 @@ setup-network:
 update: composer-update composer-dump-autoload
 
 composer-install:
-	docker run --rm -it --volume $(CURDIR):/app prooph/composer:7.3 install
+	docker run --rm -it --volume $(CURDIR):/app $(COMPOSER_IMAGE) install
 
 composer-update:
-	docker run --rm -it --volume $(CURDIR):/app prooph/composer:7.3 update
+	docker run --rm -it --volume $(CURDIR):/app $(COMPOSER_IMAGE) update
 
 composer-dump-autoload:
-	docker run --rm -it --volume $(CURDIR):/app prooph/composer:7.3 dump-autoload
+	docker run --rm -it --volume $(CURDIR):/app $(COMPOSER_IMAGE) dump-autoload
 
 # *************************
 # CONTAINER BASH
