@@ -54,4 +54,21 @@ class PatientCest
         $patientId = json_decode($patientId, true);
         $this->createdPatientId = $patientId['data']['id'];
     }
+
+    /**
+     * @group get
+     */
+    public function getPatientByIdSucceeds(AcceptanceTester $I)
+    {
+        $I->sendGET("/patients/{$this->createdPatientId}");
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['sensors_id' => $this->createPatientDataGood['sensors_id']]);
+        $I->seeResponseContainsJson(['first_name' => $this->createPatientDataGood['first_name']]);
+        $I->seeResponseContainsJson(['last_name' => $this->createPatientDataGood['last_name']]);
+        $I->seeResponseContainsJson(['birthday' => $this->createPatientDataGood['birthday']]);
+        $I->seeResponseContainsJson(['hospital_id' => $this->createPatientDataGood['hospital_id']]);
+        $I->seeResponseContainsJson(['physician' => $this->createPatientDataGood['physician']]);
+        $I->seeResponseContainsJson(['caretaker' => $this->createPatientDataGood['caretaker']]);
+    }
 }

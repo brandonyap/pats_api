@@ -16,8 +16,8 @@ class BeaconModel extends PatsModel
      */
     public function validate()
     {
-        if (!isset($this->bluetooth_address)) {
-            throw new PatsException("Bluetooth Address not set");
+        if (!isset($this->bluetooth_address) || !preg_match('/^(?:[[:xdigit:]]{2}([-:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$/', $this->bluetooth_address)) {
+            throw new PatsException("Bluetooth Address not set or invalid");
         }
         if (!isset($this->name)) {
             throw new PatsException("Name not set");

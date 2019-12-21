@@ -17,7 +17,7 @@ class SensorModel extends PatsModel
      */
     public function validate()
     {
-        if (!isset($this->bluetooth_address)) {
+        if (!isset($this->bluetooth_address) || !preg_match('/^(?:[[:xdigit:]]{2}([-:]))(?:[[:xdigit:]]{2}\1){4}[[:xdigit:]]{2}$/', $this->bluetooth_address)) {
             throw new PatsException("Bluetooth Address not set");
         }
         if (!isset($this->name)) {

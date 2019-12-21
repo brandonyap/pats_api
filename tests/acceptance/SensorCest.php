@@ -39,6 +39,12 @@ class SensorCest
         "description" => "Blah Blah"
     ];
 
+    private $createSensorBadBluetoothAddressDataBad = [
+        "bluetooth_address" => "22:22:33:",
+        "name" => "Test Sensor",
+        "description" => "Blah Blah"
+    ];
+
     /**
      * @group get
      */
@@ -96,6 +102,16 @@ class SensorCest
     /**
      * @group post
      */
+    public function createSensorBadAddressFails(AcceptanceTester $I)
+    {
+        $I->sendPOST('/sensors', $this->createSensorBadBluetoothAddressDataBad);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
+    }
+
+    /**
+     * @group post
+     */
     public function createSensorMissingNameFails(AcceptanceTester $I)
     {
         $I->sendPOST('/sensors', $this->createSensorMissingNameDataBad);
@@ -114,6 +130,16 @@ class SensorCest
         $I->seeResponseContainsJson(['bluetooth_address' => $this->createSensorWithDescriptionDataGood['bluetooth_address']]);
         $I->seeResponseContainsJson(['name' => $this->createSensorWithDescriptionDataGood['name']]);
         $I->seeResponseContainsJson(['description' => $this->createSensorWithDescriptionDataGood['description']]);
+    }
+
+    /**
+     * @group get
+     */
+    public function getSensorByMissingIdFails(AcceptanceTester $I)
+    {
+        $I->sendGET("/sensors/100000");
+        $I->seeResponseCodeIs(404);
+        $I->seeResponseIsJson();
     }
 
     /**
