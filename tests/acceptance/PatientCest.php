@@ -19,6 +19,16 @@ class PatientCest
         "caretaker" => "Blah Blah"
     ];
 
+    private $createPatientDataBad = [
+        "sensors_id" => null,
+        "first_name" => "1234",
+        "last_name" => "Blah",
+        "birthday" => "2000-01-01",
+        "hospital_id" => 1,
+        "physician" => null,
+        "caretaker" => "Blah Blah"
+    ];
+
     /**
      * @group get
      */
@@ -53,6 +63,16 @@ class PatientCest
         $patientId = $I->grabResponse();
         $patientId = json_decode($patientId, true);
         $this->createdPatientId = $patientId['data']['id'];
+    }
+
+    /**
+     * @group post
+     */
+    public function createNewPatientInvalidSensorIdFails(AcceptanceTester $I)
+    {
+        $I->sendPOST('/patients', $this->createPatientDataBad);
+        $I->seeResponseCodeIs(400);
+        $I->seeResponseIsJson();
     }
 
     /**
