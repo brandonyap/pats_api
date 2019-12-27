@@ -9,7 +9,7 @@ class BeaconGroupModel extends PatsModel
 {
     public $name = null;
     public $description = "";
-    public $active = true;
+    public $active = false;
     public $map = null;
 
     /**

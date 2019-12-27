@@ -24,6 +24,7 @@ class Router
 
         // Load Controllers
         $this->beacon_controller = new Controllers\BeaconController();
+        $this->beacon_group_controller = new Controllers\BeaconGroupController();
         $this->sensor_controller = new Controllers\SensorController();
         $this->patient_controller = new Controllers\PatientController();
 
@@ -116,17 +117,39 @@ class Router
         // api/beacons/group
         $api->group('/beacons/group', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/all
+            $beacons->get('/all', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->beacon_group_controller->get_index();
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // POST api/beacons/group
+            $beacons->post('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->post($request);
+                list($result, $status) = $this->beacon_group_controller->post_index($data);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/beacons/group/{group_id}
         $api->group('/beacons/group/{id}', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/{id}
+            $beacons->get('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->beacon_group_controller->get_byId($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // PUT api/beacons/group/{id}
+            $beacons->put('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->put($request);
+                list($result, $status) = $this->beacon_group_controller->put_id($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // DELETE api/beacons/group/{id}
+            $beacons->delete('', function (Request $request, Response $response, $args) {
+                list($result, $status) = $this->beacon_group_controller->delete_id($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/beacons/group/{group_id}/location
