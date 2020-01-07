@@ -114,6 +114,18 @@ class Router
             });
         });
 
+        // api/beacons/{beacon_id}/location
+        // Note: Requires group id in body
+        $api->group('/beacons/{id}/location', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons/{id}/location
+            
+            // POST api/beacons/{id}/location
+
+            // PUT api/beacons/{id}/location
+
+            // DELETE api/beacons/{id}/location
+        });
+
         // api/beacons/group
         $api->group('/beacons/group', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/all
@@ -155,12 +167,6 @@ class Router
         // api/beacons/group/{group_id}/location
         $api->group('/beacons/group/{id}/location', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/{id}/location/all
-            
-            // POST api/beacons/group/{id}/location
-
-            // PUT api/beacons/group/{id}/location/{beacon_id}
-
-            // DELETE api/beacons/group/{id}/location/{beacon_id}
         });
 
         // api/beacons/group/{group_id}/restricted
