@@ -10,31 +10,31 @@ class BeaconCest
     private $createdBeaconId;
 
     private $createBeaconWithDescriptionDataGood = [
-        "bluetooth_address" => "12:34:56:78:90:12",
+        "uuid" => "abcdefgh12345678abcdefgh12345678",
         "name" => "Test Beacon",
         "description" => "Blah Blah"
     ];
 
     private $updateBeaconWithDescriptionDataGood = [
-        "bluetooth_address" => "11:22:33:44:55:66",
+        "uuid" => "abcdefgh12345678abcdefgh12345678",
         "name" => "Test Beacon",
         "description" => "Blah Blah"
     ];
 
     private $createBeaconWithoutDescriptionDataGood = [
-        "bluetooth_address" => "00:11:22:33:44:55",
+        "uuid" => "12345678abcdefgh12345678abcdefgh",
         "name" => "Test Beacon 2",
         "description" => null
     ];
 
     private $createBeaconMissingAddressDataBad = [
-        "bluetooth_address" => null,
+        "uuid" => null,
         "name" => "Test Beacon",
         "description" => "Blah Blah"
     ];
 
     private $createBeaconMissingNameDataBad = [
-        "bluetooth_address" => "12:34:56:78:90:12",
+        "uuid" => "12345678abcdefgh1234567801cdefgh",
         "name" => null,
         "description" => "Blah Blah"
     ];
@@ -111,7 +111,7 @@ class BeaconCest
         $I->sendGET("/beacons/{$this->createdBeaconId}");
         $I->seeResponseCodeIs(200);
         $I->seeResponseIsJson();
-        $I->seeResponseContainsJson(['bluetooth_address' => $this->createBeaconWithDescriptionDataGood['bluetooth_address']]);
+        $I->seeResponseContainsJson(['uuid' => $this->createBeaconWithDescriptionDataGood['uuid']]);
         $I->seeResponseContainsJson(['name' => $this->createBeaconWithDescriptionDataGood['name']]);
         $I->seeResponseContainsJson(['description' => $this->createBeaconWithDescriptionDataGood['description']]);
     }

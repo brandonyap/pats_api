@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2019-12-10 04:23:19 +0000
+# Generation Time: 2020-01-25 17:23:03 +0000
 # ************************************************************
 
 
@@ -27,11 +27,11 @@ DROP TABLE IF EXISTS `beacons`;
 
 CREATE TABLE `beacons` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `bluetooth_address` varchar(17) CHARACTER SET latin1 NOT NULL DEFAULT '',
+  `uuid` varchar(32) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `name` varchar(26) CHARACTER SET latin1 NOT NULL DEFAULT '',
   `description` text CHARACTER SET latin1,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `bluetooth_address` (`bluetooth_address`)
+  UNIQUE KEY `uuid` (`uuid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

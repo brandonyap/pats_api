@@ -27,8 +27,8 @@ class BeaconInterface extends PatsInterface
      */
     public function create($data)
     {
-        $sql = "INSERT INTO beacons (bluetooth_address, name, description)
-        VALUES (:bluetooth_address, :name, :description)";
+        $sql = "INSERT INTO beacons (uuid, name, description)
+        VALUES (:uuid, :name, :description)";
 
         $beacon_model = $this->createModel($data);
         try {
@@ -39,7 +39,7 @@ class BeaconInterface extends PatsInterface
         }
 
         $args = [
-            ':bluetooth_address' => $beacon_model->bluetooth_address,
+            ':uuid' => $beacon_model->uuid,
             ':name' => $beacon_model->name,
             ':description' => $beacon_model->description
         ];
@@ -110,7 +110,7 @@ class BeaconInterface extends PatsInterface
     public function update($data)
     {
         $sql = "UPDATE beacons
-            SET bluetooth_address = :bluetooth_address,
+            SET uuid = :uuid,
                 name = :name,
                 description = :description
             WHERE id = :id";
@@ -124,7 +124,7 @@ class BeaconInterface extends PatsInterface
         }
 
         $args = [
-            ':bluetooth_address' => $beacon_model->bluetooth_address,
+            ':uuid' => $beacon_model->uuid,
             ':name' => $beacon_model->name,
             ':description' => $beacon_model->description,
             ':id' => $beacon_model->id
@@ -178,8 +178,8 @@ class BeaconInterface extends PatsInterface
         if (isset($data['id'])) {
             $model->id = intval($data['id']);
         }
-        if (isset($data['bluetooth_address'])) {
-            $model->bluetooth_address = $data['bluetooth_address'];
+        if (isset($data['uuid'])) {
+            $model->uuid = $data['uuid'];
         }
         if (isset($data['name'])) {
             $model->name = $data['name'];

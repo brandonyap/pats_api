@@ -59,7 +59,7 @@ GET `{{host}}/api/beacons/all`
 
 POST `{{host}}/api/beacons` with x-www-form-urlencoded data or json:
 ```
-	bluetooth_address:{bluetooth_address} with format 11:22:33:44:55:66 (unique)
+	uuid:{uuid} with format 12345678abcdefgh12345678abcdefgh (unique with 32 characters no '-')
 	name:{name}
 	description:{description} (optional)
 ```
@@ -68,7 +68,7 @@ GET `{{host}}/api/beacons/{id}`
 
 PUT `{{host}}/api/beacons/{id}` with x-www-form-urlencoded data or json:
 ```
-	bluetooth_address:{bluetooth_address} with format 11:22:33:44:55:66 (unique)
+	uuid:{uuid} with format 12345678abcdefgh12345678abcdefgh (unique with 32 characters no '-')
 	name:{name}
 	description:{description} (optional)
 ```
