@@ -116,9 +116,7 @@ class Router
 
         // api/beacons/{beacon_id}/location
         // Note: Requires group id in body
-        $api->group('/beacons/{id}/location', function (RouteCollectorProxy $beacons) {
-            // GET api/beacons/{id}/location
-            
+        $api->group('/beacons/{id}/location', function (RouteCollectorProxy $beacons) {            
             // POST api/beacons/{id}/location
 
             // PUT api/beacons/{id}/location
@@ -166,6 +164,8 @@ class Router
 
         // api/beacons/group/{group_id}/location
         $api->group('/beacons/group/{id}/location', function (RouteCollectorProxy $beacons) {
+            // GET api/beacons/group/{id}/location/{beacon_id}
+            
             // GET api/beacons/group/{id}/location/all
         });
 
