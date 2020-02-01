@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2020-01-25 17:23:03 +0000
+# Generation Time: 2020-02-01 17:16:19 +0000
 # ************************************************************
 
 
@@ -63,7 +63,8 @@ CREATE TABLE `beacons_group_locations` (
   `beacons_id` int(11) NOT NULL,
   `location_x` float NOT NULL,
   `location_y` float NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `group_id` (`group_id`,`beacons_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

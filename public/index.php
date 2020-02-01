@@ -27,6 +27,7 @@ class Router
         $this->beacon_group_controller = new Controllers\BeaconGroupController();
         $this->sensor_controller = new Controllers\SensorController();
         $this->patient_controller = new Controllers\PatientController();
+        $this->beacon_location_controller = new Controllers\BeaconLocationController();
 
         // Load Routes
         $this->testRoutes($app);
@@ -118,6 +119,11 @@ class Router
         // Note: Requires group id in body
         $api->group('/beacons/{id}/location', function (RouteCollectorProxy $beacons) {            
             // POST api/beacons/{id}/location
+            $beacons->post('', function (Request $request, Response $response, $args) {
+                $data = $this->route_helper->post($request);
+                list($result, $status) = $this->beacon_location_controller->post_index($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // PUT api/beacons/{id}/location
 
