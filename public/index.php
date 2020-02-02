@@ -23,11 +23,11 @@ class Router
         $this->route_helper = new RouteHelper();
 
         // Load Controllers
-        $this->beacon_controller = new Controllers\BeaconController();
-        $this->beacon_group_controller = new Controllers\BeaconGroupController();
-        $this->sensor_controller = new Controllers\SensorController();
-        $this->patient_controller = new Controllers\PatientController();
-        $this->beacon_location_controller = new Controllers\BeaconLocationController();
+        // $this->beacon_controller = new Controllers\BeaconController();
+        // $this->beacon_group_controller = new Controllers\BeaconGroupController();
+        // $this->sensor_controller = new Controllers\SensorController();
+        // $this->patient_controller = new Controllers\PatientController();
+        // $this->beacon_location_controller = new Controllers\BeaconLocationController();
 
         // Load Routes
         $this->testRoutes($app);
@@ -81,14 +81,16 @@ class Router
         $api->group('/beacons', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/all
             $beacons->get('/all', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->beacon_controller->get_index();
+                $beacon_controller = new Controllers\BeaconController();
+                list($result, $status) = $beacon_controller->get_index();
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // POST api/beacons
             $beacons->post('', function (Request $request, Response $response, $args) {
+                $beacon_controller = new Controllers\BeaconController();
                 $data = $this->route_helper->post($request);
-                list($result, $status) = $this->beacon_controller->post_index($data);
+                list($result, $status) = $beacon_controller->post_index($data);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -97,20 +99,23 @@ class Router
         $api->group('/beacons/{id}', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/{id}
             $beacons->get('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->beacon_controller->get_byId($args);
+                $beacon_controller = new Controllers\BeaconController();
+                list($result, $status) = $beacon_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // PUT api/beacons/{id}
             $beacons->put('', function (Request $request, Response $response, $args) {
+                $beacon_controller = new Controllers\BeaconController();
                 $data = $this->route_helper->put($request);
-                list($result, $status) = $this->beacon_controller->put_id($args, $data);
+                list($result, $status) = $beacon_controller->put_id($args, $data);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // DELETE api/beacons/{id}
             $beacons->delete('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->beacon_controller->delete_id($args);
+                $beacon_controller = new Controllers\BeaconController();
+                list($result, $status) = $beacon_controller->delete_id($args);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -120,28 +125,43 @@ class Router
         $api->group('/beacons/{id}/location', function (RouteCollectorProxy $beacons) {            
             // POST api/beacons/{id}/location
             $beacons->post('', function (Request $request, Response $response, $args) {
+                $beacon_location_controller = new Controllers\BeaconLocationController();
                 $data = $this->route_helper->post($request);
-                list($result, $status) = $this->beacon_location_controller->post_index($args, $data);
+                list($result, $status) = $beacon_location_controller->post_index($args, $data);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // PUT api/beacons/{id}/location
+            $beacons->put('', function (Request $request, Response $response, $args) {
+                $beacon_location_controller = new Controllers\BeaconLocationController();
+                $data = $this->route_helper->put($request);
+                list($result, $status) = $beacon_location_controller->put_id($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // DELETE api/beacons/{id}/location
+            $beacons->delete('', function (Request $request, Response $response, $args) {
+                $beacon_location_controller = new Controllers\BeaconLocationController();
+                $data = $this->route_helper->delete($request);
+                list($result, $status) = $beacon_location_controller->delete_id($args, $data);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/beacons/group
         $api->group('/beacons/group', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/all
             $beacons->get('/all', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->beacon_group_controller->get_index();
+                $beacon_group_controller = new Controllers\BeaconGroupController();
+                list($result, $status) = $beacon_group_controller->get_index();
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // POST api/beacons/group
             $beacons->post('', function (Request $request, Response $response, $args) {
+                $beacon_group_controller = new Controllers\BeaconGroupController();
                 $data = $this->route_helper->post($request);
-                list($result, $status) = $this->beacon_group_controller->post_index($data);
+                list($result, $status) = $beacon_group_controller->post_index($data);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -150,20 +170,23 @@ class Router
         $api->group('/beacons/group/{id}', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/{id}
             $beacons->get('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->beacon_group_controller->get_byId($args);
+                $beacon_group_controller = new Controllers\BeaconGroupController();
+                list($result, $status) = $beacon_group_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // PUT api/beacons/group/{id}
             $beacons->put('', function (Request $request, Response $response, $args) {
+                $beacon_group_controller = new Controllers\BeaconGroupController();
                 $data = $this->route_helper->put($request);
-                list($result, $status) = $this->beacon_group_controller->put_id($args, $data);
+                list($result, $status) = $beacon_group_controller->put_id($args, $data);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // DELETE api/beacons/group/{id}
             $beacons->delete('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->beacon_group_controller->delete_id($args);
+                $beacon_group_controller = new Controllers\BeaconGroupController();
+                list($result, $status) = $beacon_group_controller->delete_id($args);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -171,8 +194,18 @@ class Router
         // api/beacons/group/{group_id}/location
         $api->group('/beacons/group/{id}/location', function (RouteCollectorProxy $beacons) {
             // GET api/beacons/group/{id}/location/{beacon_id}
+            $beacons->get('/{beacon_id}', function (Request $request, Response $response, $args) {
+                $beacon_location_controller = new Controllers\BeaconLocationController();
+                list($result, $status) = $beacon_location_controller->get_byId($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
             
             // GET api/beacons/group/{id}/location/all
+            $beacons->get('/all', function (Request $request, Response $response, $args) {
+                $beacon_location_controller = new Controllers\BeaconLocationController();
+                list($result, $status) = $beacon_location_controller->get_index($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
 
         // api/beacons/group/{group_id}/restricted
@@ -194,15 +227,17 @@ class Router
         $api->group('/sensors', function (RouteCollectorProxy $sensors) {
             // GET api/sensors/all(?active={bool})
             $sensors->get('/all', function (Request $request, Response $response, $args) {
+                $sensor_controller = new Controllers\SensorController();
                 $data = $this->route_helper->get($request);
-                list($result, $status) = $this->sensor_controller->get_index($data);
+                list($result, $status) = $sensor_controller->get_index($data);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // POST api/sensors
             $sensors->post('', function (Request $request, Response $response, $args) {
+                $sensor_controller = new Controllers\SensorController();
                 $data = $this->route_helper->post($request);
-                list($result, $status) = $this->sensor_controller->post_index($data);
+                list($result, $status) = $sensor_controller->post_index($data);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -211,20 +246,23 @@ class Router
         $api->group('/sensors/{id}', function (RouteCollectorProxy $sensors) {
             // GET api/sensors/{id}
             $sensors->get('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->sensor_controller->get_byId($args);
+                $sensor_controller = new Controllers\SensorController();
+                list($result, $status) = $sensor_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // PUT api/sensors/{id}
             $sensors->put('', function (Request $request, Response $response, $args) {
+                $sensor_controller = new Controllers\SensorController();
                 $data = $this->route_helper->put($request);
-                list($result, $status) = $this->sensor_controller->put_id($args, $data);
+                list($result, $status) = $sensor_controller->put_id($args, $data);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // DELETE api/sensors/{id}
             $sensors->delete('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->sensor_controller->delete_id($args);
+                $sensor_controller = new Controllers\SensorController();
+                list($result, $status) = $sensor_controller->delete_id($args);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -242,7 +280,8 @@ class Router
         $api->group('/patients', function (RouteCollectorProxy $patients) {
             // GET api/patients/all
             $patients->get('/all', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->patient_controller->get_index();
+                $patient_controller = new Controllers\PatientController();
+                list($result, $status) = $patient_controller->get_index();
                 return $this->route_helper->response($response, $result, $status);
             });
 
@@ -250,8 +289,10 @@ class Router
 
             // POST api/patients
             $patients->post('', function (Request $request, Response $response, $args) {
+                $patient_controller = new Controllers\PatientController();
+
                 $data = $this->route_helper->post($request);
-                list($result, $status) = $this->patient_controller->post_index($data);
+                list($result, $status) = $patient_controller->post_index($data);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
@@ -260,7 +301,9 @@ class Router
         $api->group('/patients/{id}', function (RouteCollectorProxy $patients) {
             // GET api/patients/{id}
             $patients->get('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->patient_controller->get_byId($args);
+                $patient_controller = new Controllers\PatientController();
+
+                list($result, $status) = $patient_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
 
@@ -274,14 +317,18 @@ class Router
 
             // PUT api/patients/{id}
             $patients->put('', function (Request $request, Response $response, $args) {
+                $patient_controller = new Controllers\PatientController();
+
                 $data = $this->route_helper->put($request);
-                list($result, $status) = $this->patient_controller->put_id($args, $data);
+                list($result, $status) = $patient_controller->put_id($args, $data);
                 return $this->route_helper->response($response, $result, $status);
             });
 
             // DELETE api/patients/{id}
             $patients->delete('', function (Request $request, Response $response, $args) {
-                list($result, $status) = $this->patient_controller->delete_id($args);
+                $patient_controller = new Controllers\PatientController();
+
+                list($result, $status) = $patient_controller->delete_id($args);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
