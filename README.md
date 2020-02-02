@@ -57,14 +57,14 @@ To test specific groups of tests run the following command:
 ## Beacons
 GET `{{host}}/api/beacons/all`
 
+GET `{{host}}/api/beacons/{id}`
+
 POST `{{host}}/api/beacons` with x-www-form-urlencoded data or json:
 ```
 	uuid:{uuid} with format 12345678abcdefgh12345678abcdefgh (unique with 32 characters no '-')
 	name:{name}
 	description:{description} (optional)
 ```
-
-GET `{{host}}/api/beacons/{id}`
 
 PUT `{{host}}/api/beacons/{id}` with x-www-form-urlencoded data or json:
 ```
@@ -75,8 +75,53 @@ PUT `{{host}}/api/beacons/{id}` with x-www-form-urlencoded data or json:
 
 DELETE `{{host}}/api/beacons/{id}`
 
+## Beacon Groups
+GET `{{host}}/api/beacons/group/all`
+
+GET `{{host}}/api/beacons/group/{id}`
+
+POST `{{host}}/api/beacons/group` with x-www-form-urlencoded data or json:
+```
+	name:{name}
+	description:{description} (optional)
+```
+
+PUT `{{host}}/api/beacons/group/{id}` with x-www-form-urlencoded data or json:
+```
+	name:{name}
+	description:{description} (optional)
+```
+
+DELETE `{{host}}/api/beacons/group/{id}`
+
+## Beacon Locations
+GET `{{host}}/api/beacons/group/{group_id}`
+
+GET `{{host}}/api/beacons/group/{id}/location/{beacon_id}`
+
+POST `{{host}}/api/beacons/{beacons_id}/location` with x-www-form-urlencoded data or json:
+```
+	group_id:{group_id}
+	location_x:{location_x} (Float value)
+	location_y:{location_y} (Float value)
+```
+
+PUT `{{host}}/api/beacons/{beacons_id}/location` with x-www-form-urlencoded data or json:
+```
+	group_id:{group_id}
+	location_x:{location_x} (Float value)
+	location_y:{location_y} (Float value)
+```
+
+DELETE `{{host}}/api/beacons/{beacons_id}/location` with x-www-form-urlencoded data or json:
+```
+	group_id:{group_id}
+```
+
 ## Sensors
 GET `{{host}}/api/sensors/all?active={boolean}` `true` means being used by a patient and `false` means not being used. `active` is also optional so if it is not declared then it will display all sensors.
+
+GET `{{host}}/api/sensors/{id}`
 
 POST `{{host}}/api/sensors` with x-www-form-urlencoded data or json:
 ```
@@ -84,8 +129,6 @@ POST `{{host}}/api/sensors` with x-www-form-urlencoded data or json:
 	name:{name}
 	description:{description} (optional)
 ```
-
-GET `{{host}}/api/sensors/{id}`
 
 PUT `{{host}}/api/sensors/{id}` with x-www-form-urlencoded data or json:
 ```
