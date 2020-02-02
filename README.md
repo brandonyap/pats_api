@@ -95,9 +95,9 @@ PUT `{{host}}/api/beacons/group/{id}` with x-www-form-urlencoded data or json:
 DELETE `{{host}}/api/beacons/group/{id}`
 
 ## Beacon Locations
-GET `{{host}}/api/beacons/group/{group_id}`
+GET `{{host}}/api/beacons/group/{group_id}/location/all`
 
-GET `{{host}}/api/beacons/group/{id}/location/{beacon_id}`
+GET `{{host}}/api/beacons/group/{group_id}/location/{beacon_id}`
 
 POST `{{host}}/api/beacons/{beacons_id}/location` with x-www-form-urlencoded data or json:
 ```
