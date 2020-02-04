@@ -65,4 +65,28 @@ class BeaconLocationCest
         $beaconId = json_decode($beaconId, true);
         $this->createdBeaconLocationId = $beaconId['data']['id'];
     }
+
+    /**
+     * @group get
+     */
+    public function getAllBeaconLocationsSucceeds(AcceptanceTester $I)
+    {
+        $I->sendGET("/beacons/group/{$this->createdBeaconGroupId}/location/all");
+        $I->seeResponseCodeIs(200);
+    }
+
+    /**
+     * @group get
+     */
+    public function getBeaconLocationByIdSucceeds(AcceptanceTester $I)
+    {
+        $I->sendGET("/beacons/group/{$this->createdBeaconGroupId}/location/{$this->createdBeaconId}");
+        $I->seeResponseCodeIs(200);
+        $I->seeResponseIsJson();
+        $I->seeResponseContainsJson(['id' => $this->createdBeaconLocationId]);
+        $I->seeResponseContainsJson(['group_id' => $this->createdBeaconLocationDataGood['group_id']]);
+        $I->seeResponseContainsJson(['beacons_id' => $this->createdBeaconId]);
+        $I->seeResponseContainsJson(['location_x' => $this->createdBeaconLocationDataGood['location_x']]);
+        $I->seeResponseContainsJson(['location_y' => $this->createdBeaconLocationDataGood['location_y']]);
+    }
 }

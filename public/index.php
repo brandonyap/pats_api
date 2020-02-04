@@ -193,17 +193,17 @@ class Router
 
         // api/beacons/group/{group_id}/location
         $api->group('/beacons/group/{id}/location', function (RouteCollectorProxy $beacons) {
-            // GET api/beacons/group/{id}/location/{beacon_id}
-            $beacons->get('/{beacon_id}', function (Request $request, Response $response, $args) {
-                $beacon_location_controller = new Controllers\BeaconLocationController();
-                list($result, $status) = $beacon_location_controller->get_byId($args);
-                return $this->route_helper->response($response, $result, $status);
-            });
-            
             // GET api/beacons/group/{id}/location/all
             $beacons->get('/all', function (Request $request, Response $response, $args) {
                 $beacon_location_controller = new Controllers\BeaconLocationController();
                 list($result, $status) = $beacon_location_controller->get_index($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
+            
+            // GET api/beacons/group/{id}/location/{beacon_id}
+            $beacons->get('/{beacon_id}', function (Request $request, Response $response, $args) {
+                $beacon_location_controller = new Controllers\BeaconLocationController();
+                list($result, $status) = $beacon_location_controller->get_byId($args);
                 return $this->route_helper->response($response, $result, $status);
             });
         });
