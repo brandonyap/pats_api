@@ -267,9 +267,15 @@ class Router
             });
         });
 
-        // api/sensors/{id}/location
-        $api->group('/sensors/{id}/location', function (RouteCollectorProxy $sensors) {
-            // POST api/sensors/{id}/location
+        // api/sensors/location
+        $api->group('/sensors/location', function (RouteCollectorProxy $sensors) {
+            // POST api/sensors/location
+            $sensors->post('', function (Request $request, Response $response, $args) {
+                $sensor_location_controller = new Controllers\SensorLocationController();
+                $data = $this->route_helper->post($request);
+                list($result, $status) = $sensor_location_controller->post_index($data);
+                return $this->route_helper->response($response, $result, $status);
+            });
         });
     }
 
@@ -308,6 +314,12 @@ class Router
             });
 
             // GET api/patients/{id}/location
+            $patients->get('/location', function (Request $request, Response $response, $args) {
+                $patient_controller = new Controllers\PatientController();
+
+                list($result, $status) = $patient_controller->get_locationById($args);
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // GET api/patients/{id}/location/history
 

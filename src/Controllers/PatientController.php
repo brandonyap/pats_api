@@ -47,6 +47,23 @@ class PatientController extends RESTController
         }
     }
 
+    /**
+     * GET /patients/{id}/location
+     */
+    public function get_locationById($data)
+    {
+        if (isset($data['id'])) {
+            $result = $this->patient_interface->getPatientLocation($data['id']);
+            if ($result) {
+                return $this->response(true, $result, 200);
+            } else {
+                return $this->response(false, "Patient location not found.", 404);
+            }
+        } else {
+            return $this->response(false, "Please provide an ID.", 400);
+        }
+    }
+
     //======================================================================
     // POST
     //======================================================================

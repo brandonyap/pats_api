@@ -108,6 +108,29 @@ class SensorInterface extends PatsInterface
         }
     }
 
+    /**
+     * Gets the id on the given sensor address.
+     * @param string $ba is the bluetooth address.
+     * @return int or false if not found.
+     */
+    public function getByBluetoothAddress($ba)
+    {
+        $sql = "SELECT * FROM sensors WHERE bluetooth_address = :bluetooth_address";
+        $args[':bluetooth_address'] = $ba;
+
+        $query = $this->db->query($sql, $args);
+
+        if (!$query) {
+            return false;
+        }
+
+        if (count($query) > 0) {
+            return $this->createModel($query[0]);
+        } else {
+            return false;
+        }
+    }
+
     //======================================================================
     // UPDATE METHODS
     //======================================================================

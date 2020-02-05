@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.7.28)
 # Database: pats
-# Generation Time: 2020-02-01 17:16:19 +0000
+# Generation Time: 2020-02-05 00:23:25 +0000
 # ************************************************************
 
 
@@ -152,7 +152,8 @@ CREATE TABLE `sensors_locations` (
   `sensors_id` int(11) NOT NULL,
   `location_x` float NOT NULL,
   `location_y` float NOT NULL,
-  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY `sensors_id` (`sensors_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 

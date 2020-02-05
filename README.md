@@ -168,6 +168,16 @@ PUT `{{host}}/api/patients/{id}` with x-www-form-urlencoded data or json:
 
 DELETE `{{host}}/api/patients/{id}`
 
+## Locations
+GET `{{host}}/api/patients/{id}/location`
+
+POST `{{host}}/api/sensors/location` with x-www-form-urlencoded data or json:
+```
+	sensors_address:{sensors_address} with format 11:22:33:44:55:66
+	location_x:{location_x} (Float value)
+	location_y:{location_y} (Float value)
+```
+
 # Cleaning up the project
 When you're finished with the project and no longer want any of the Docker containers and networks on your computer run the following command:
 

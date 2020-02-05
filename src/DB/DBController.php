@@ -87,4 +87,19 @@ class DBController
     {
         return $this->connection->lastInsertId();
     }
+
+    public function beginTransaction()
+    {
+        $this->connection->beginTransaction();
+    }
+
+    public function commit()
+    {
+        $this->connection->commit();
+    }
+
+    public function rollBack()
+    {
+        $this->connection->rollBack();
+    }
 }

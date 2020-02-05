@@ -4,12 +4,15 @@ namespace pats\Interfaces;
 
 use pats\Interfaces\PatsInterface;
 use pats\Models\PatientModel;
+use pats\Models\PatientLocationModel;
 use pats\Exceptions\PatsException;
 use pats\Interfaces\SensorInterface;
+use pats\Interfaces\SensorLocationInterface;
 
 class PatientInterface extends PatsInterface
 {
     private $sensor_interface;
+    private $sensor_location_interface;
 
     /**
      * Constructs the class to use PatsInterface.
@@ -18,6 +21,7 @@ class PatientInterface extends PatsInterface
     {
         parent::__construct();
         $this->sensor_interface = new SensorInterface();
+        $this->sensor_location_interface = new SensorLocationInterface();
     }
 
     //======================================================================
@@ -111,6 +115,18 @@ class PatientInterface extends PatsInterface
 
         if (count($query) > 0) {
             return $this->createModel($query[0]);
+        } else {
+            return false;
+        }
+    }
+
+    public function getPatientLocation($id)
+    {
+        $patient = $this->getById($id);
+        $sensor_location = $this->sensor_location_interface->getCurrentLocationById($patient->sensors_id);
+
+        if ($sensor_location) {
+            return $this->createLocationModel($patient, $sensor_location);
         } else {
             return false;
         }
@@ -240,6 +256,21 @@ class PatientInterface extends PatsInterface
         if (isset($data['comments'])) {
             $model->comments = $data['comments'];
         }
+
+        return $model;
+    }
+
+    private function createLocationModel($patient_model, $sensor_location_model)
+    {
+        $model = new PatientLocationModel();
+
+        $model->id = $patient_model->id;
+        $model->sensors_id = $patient_model->sensors_id;
+        $model->first_name = $patient_model->first_name;
+        $model->last_name = $patient_model->last_name;
+        $model->location_x = $sensor_location_model->location_x;
+        $model->location_y = $sensor_location_model->location_y;
+        $model->timestamp = $sensor_location_model->timestamp;
 
         return $model;
     }
