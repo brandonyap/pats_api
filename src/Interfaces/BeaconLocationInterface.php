@@ -89,6 +89,7 @@ class BeaconLocationInterface extends PatsInterface
         $results = [];
 
         foreach ($query as $beacon_group_location) {
+            $beacon_group_location['uuid'] = $this->beacon_interface->getById(intval($beacon_group_location['beacons_id']))->uuid;
             $results[] = $this->createModel($beacon_group_location);
         }
 
@@ -203,6 +204,9 @@ class BeaconLocationInterface extends PatsInterface
 
         if (isset($data['id'])) {
             $model->id = intval($data['id']);
+        }
+        if (isset($data['uuid'])) {
+            $model->uuid = $data['uuid'];
         }
         if (isset($data['group_id'])) {
             $model->group_id = intval($data['group_id']);

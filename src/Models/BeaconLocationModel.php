@@ -7,6 +7,7 @@ use pats\Exceptions\PatsException;
 
 class BeaconLocationModel extends PatsModel
 {
+    public $uuid = "";
     public $group_id = null;
     public $beacons_id = null;
     public $location_x = null;
