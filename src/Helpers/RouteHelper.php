@@ -14,7 +14,7 @@ class RouteHelper
     {
         $data_json = json_encode($data);
         $res = $response->getBody()->write($data_json);
-        $res = $response->withHeader('Content-Type', 'application/json')->withStatus($status);
+        $res = $response->withHeader('Content-Type', 'application/json')->withHeader('Access-Control-Allow-Origin', '*')->withStatus($status);
         return $res;
     }
 
