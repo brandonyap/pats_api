@@ -28,7 +28,17 @@ class Router
         // $this->sensor_controller = new Controllers\SensorController();
         // $this->patient_controller = new Controllers\PatientController();
         // $this->beacon_location_controller = new Controllers\BeaconLocationController();
-
+        $app->options('/{routes:.+}', function ($request, $response, $args) {
+            return $response;
+        });
+        
+        $app->add(function ($request, $handler) {
+            $response = $handler->handle($request);
+            return $response
+                    ->withHeader('Access-Control-Allow-Origin', '*')
+                    ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                    ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        });
         // Load Routes
         $this->testRoutes($app);
         $this->apiRoutes($app);
