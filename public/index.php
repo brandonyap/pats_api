@@ -23,11 +23,6 @@ class Router
         $this->route_helper = new RouteHelper();
 
         // Load Controllers
-        // $this->beacon_controller = new Controllers\BeaconController();
-        // $this->beacon_group_controller = new Controllers\BeaconGroupController();
-        // $this->sensor_controller = new Controllers\SensorController();
-        // $this->patient_controller = new Controllers\PatientController();
-        // $this->beacon_location_controller = new Controllers\BeaconLocationController();
         $app->options('/{routes:.+}', function ($request, $response, $args) {
             return $response;
         });
