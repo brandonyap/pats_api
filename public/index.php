@@ -301,7 +301,12 @@ class Router
                 return $this->route_helper->response($response, $result, $status);
             });
 
-            // GET api/patients/locations/all
+            // GET api/patients/location/all
+            $patients->get('/location/all', function (Request $request, Response $response, $args) {
+                $patient_controller = new Controllers\PatientController();
+                list($result, $status) = $patient_controller->get_allLocations();
+                return $this->route_helper->response($response, $result, $status);
+            });
 
             // POST api/patients
             $patients->post('', function (Request $request, Response $response, $args) {

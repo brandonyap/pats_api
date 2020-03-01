@@ -5,6 +5,7 @@ namespace pats\Interfaces;
 use pats\Interfaces\PatsInterface;
 use pats\Models\BeaconGroupModel;
 use pats\Exceptions\PatsException;
+use pats\Interfaces\BeaconLocationInterface;
 
 class BeaconGroupInterface extends PatsInterface
 {
@@ -155,6 +156,8 @@ class BeaconGroupInterface extends PatsInterface
         $result = $this->db->execQuery($sql, $args);
 
         if ($result) {
+            $beacon_location_interface = new BeaconLocationInterface();
+            $beacon_location_interface->deleteAllFromGroup($data['id']);
             return $data['id'];
         } else {
             return false;

@@ -64,6 +64,19 @@ class PatientController extends RESTController
         }
     }
 
+    /**
+     * GET /patients/locations/all
+     */
+    public function get_allLocations()
+    {
+        $result = $this->patient_interface->getAllPatientLocations();
+        if ($result) {
+            return $this->response(true, $result, 200);
+        } else {
+            return $this->response(false, "Patient locations not found.", 404);
+        }
+    }
+
     //======================================================================
     // POST
     //======================================================================

@@ -190,6 +190,28 @@ class BeaconLocationInterface extends PatsInterface
         }
     }
 
+    /**
+     * Deletes beacon locations from a specific beacon group in the beacons_group_location table.
+     * @param array $data is the id
+     * @return int for beacon ID or false if the query wasn't completed
+     */
+    public function deleteAllFromGroup($group_id)
+    {
+        $sql = "DELETE FROM beacons_group_locations WHERE group_id = :group_id";
+
+        $q_args = [
+            ':group_id' => $group_id
+        ];
+
+        $result = $this->db->execQuery($sql, $q_args);
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     //======================================================================
     // PRIVATE METHODS
     //======================================================================

@@ -132,6 +132,34 @@ class PatientInterface extends PatsInterface
         }
     }
 
+    public function getAllPatientLocations()
+    {
+        $sql = "SELECT 
+                    patients.id, 
+                    patients.sensors_id, 
+                    patients.first_name, 
+                    patients.last_name,
+                    sensors_locations.location_x,
+                    sensors_locations.location_y,
+                    sensors_locations.last_updated
+                FROM patients 
+                LEFT JOIN sensors_locations 
+                ON patients.sensors_id=sensors_locations.sensors_id";
+        
+        $sensor_locations = $this->db->query($sql);
+
+        if (!$sensor_locations) {
+            return false;
+        }
+
+        $results = [];
+        foreach($sensor_locations as $sl) {
+            $results[] = $this->createLocationModelFromQuery($sl);
+        }
+
+        return $results;
+    }
+
     //======================================================================
     // UPDATE METHODS
     //======================================================================
@@ -271,6 +299,21 @@ class PatientInterface extends PatsInterface
         $model->location_x = $sensor_location_model->location_x;
         $model->location_y = $sensor_location_model->location_y;
         $model->timestamp = $sensor_location_model->timestamp;
+
+        return $model;
+    }
+
+    private function createLocationModelFromQuery($query)
+    {
+        $model = new PatientLocationModel();
+
+        $model->id = intval($query["id"]);
+        $model->sensors_id = intval($query["sensors_id"]);
+        $model->first_name = $query["first_name"];
+        $model->last_name = $query["last_name"];
+        $model->location_x = floatval($query["location_x"]);
+        $model->location_y = floatval($query["location_y"]);
+        $model->timestamp = $query["last_updated"];
 
         return $model;
     }

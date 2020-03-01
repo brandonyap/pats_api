@@ -171,6 +171,8 @@ DELETE `{{host}}/api/patients/{id}`
 ## Locations
 GET `{{host}}/api/patients/{id}/location`
 
+GET `{{host}}/api/patients/location/all`
+
 POST `{{host}}/api/sensors/location` with x-www-form-urlencoded data or json:
 ```
 	sensors_address:{sensors_address} with format 11:22:33:44:55:66
