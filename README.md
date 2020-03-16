@@ -3,6 +3,7 @@ The Patients with Alzeimers Tracking System was developed for our final design c
 
 ## Associated Repositories
 - https://github.com/brandonyap/pats_ios
+- https://github.com/brandonyap/pats_ios_tracker
 
 # pats_api
 `pats_api` is the RESTful API for the back end server of the Patients with Alzeimers Tracking System (PATS).
