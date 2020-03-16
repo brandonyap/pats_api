@@ -1,5 +1,8 @@
+# Patients with Alzeimers Tracking System (PATS)
+The Patients with Alzeimers Tracking System was developed for our final design course (ENGG_41X0) at the University of Guelph. This portion of the project contains a setup for the API and MySQL server to be ran in a Docker Container. The repositories associated with this project are all imported from Bitbucket and may contain Bitbucket pipeline files. 
+
 # pats_api
-`pats_api` is the RESTful API for the back end of the Patients with Alzeimers Tracking System (PATS).
+`pats_api` is the RESTful API for the back end server of the Patients with Alzeimers Tracking System (PATS).
 
 The `pats_api` runs on `localhost:8888`
 
